@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:widgetbook_challenge/blocs/src/greetings_bloc.dart';
+
+import 'package:widgetbook_challenge/blocs/bloc.dart';
 
 /// The app.
 class App extends StatelessWidget {
