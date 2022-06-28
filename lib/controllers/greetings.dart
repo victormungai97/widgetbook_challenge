@@ -7,8 +7,7 @@ class GreetingsController extends Controller {
   /// constructor
   const GreetingsController();
 
-  static final RegExp _nameRegExp =
-      RegExp(r'[!@#<>?":_`~;[\]\\|=+/)(*&^%0-9-]');
+  static final _nameRegExp = RegExp(r'[!@#<>?":_`~;[\]\\|=+/)(*&^%0-9-]');
 
   /// Receive user's name, make API call and get, process & return response
   Future<String> getGreeting({required String name}) async {
