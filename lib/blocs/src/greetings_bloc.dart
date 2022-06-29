@@ -5,7 +5,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:widgetbook_challenge/controllers/controller.dart';
 
 part 'greetings_bloc.freezed.dart';
+
 part 'greetings_event.dart';
+
 part 'greetings_state.dart';
 
 /// BLoC class that receives actions from user via events and emits
@@ -13,22 +15,28 @@ part 'greetings_state.dart';
 class GreetingsBloc extends Bloc<GreetingsEvent, GreetingsState> {
   /// Constructor for creating instances of [GreetingsBloc]
   GreetingsBloc(this._greetingsController)
-      : super(const GreetingsState.initial()) {
-    on<GetGreetingEvent>((event, emit) async {
-      try {
-        // Make screen load
-        emit(const GreetingsState.loading());
-        // make API Call and get response
-        final result = await _greetingsController.getGreeting(name: event.name);
-        if (result.toLowerCase().startsWith('hello')) {
-          emit(GreetingsState.completed(response: result));
-        } else {
-          emit(GreetingsState.exception(message: result));
-        }
-      } on Exception catch (ex, stackTrace) {
-        debugPrint('ERROR GETTING greeting:\t$ex\n--\nSTACKTRACE: $stackTrace');
-        emit(const GreetingsState.exception(message: 'Error getting response'));
-      }
+      : super(const _GreetingsInitialState()) {
+    on<GreetingsEvent>((event, emit) {
+      event.when(
+        request: (name) async {
+          try {
+            // Make screen load
+            emit(const GreetingsState.loading());
+            // make API Call and get response
+            final result = await _greetingsController.getGreeting(name: name);
+            if (result.toLowerCase().startsWith('hello')) {
+              emit(GreetingsState.completed(response: result));
+            } else {
+              emit(GreetingsState.exception(message: result));
+            }
+          } on Exception catch (ex, sTrace) {
+            debugPrint('ERROR GETTING greeting:\t$ex\n--\nSTACKTRACE: $sTrace');
+            emit(
+              const GreetingsState.exception(message: 'Error getting response'),
+            );
+          }
+        },
+      );
     });
   }
 
