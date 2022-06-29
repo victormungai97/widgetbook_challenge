@@ -3,29 +3,37 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:widgetbook_challenge/blocs/bloc.dart';
+import 'package:widgetbook_challenge/controllers/controller.dart';
 
 /// The app.
 class App extends StatelessWidget {
   /// Creates a new instance of [App].
   const App({
     Key? key,
-  }) : super(key: key);
+    required GreetingsController greetingsController,
+  })  : _greetingsController = greetingsController,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GreetingsBloc(),
-      child: MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Interview Challenge'),
+    return RepositoryProvider.value(
+      value: _greetingsController,
+      child: BlocProvider(
+        create: (context) => GreetingsBloc(_greetingsController),
+        child: MaterialApp(
+          home: Scaffold(
+            appBar: AppBar(
+              title: const Text('Interview Challenge'),
+            ),
+            body: const Center(child: _Body()),
           ),
-          body: const Center(child: _Body()),
+          debugShowCheckedModeBanner: false,
         ),
-        debugShowCheckedModeBanner: false,
       ),
     );
   }
+
+  final GreetingsController _greetingsController;
 }
 
 /// the body

@@ -2,6 +2,9 @@
 
 dart format .
 dart doc .
+
+git config user.email "victormungai97@gmail.com"
+git config user.name "Victor Kamau"
 git add .
 
 read -p "Commit message (Optional): " message
@@ -30,3 +33,5 @@ else
 fi
 
 git push origin $BRANCH
+git config --unset-all user.email
+git config --unset-all user.name

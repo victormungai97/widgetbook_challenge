@@ -2,11 +2,7 @@ part of 'controller.dart';
 
 /// This class shall handle logic with respect to greetings, e.g. API calls
 
-@injectable
 class GreetingsController extends Controller {
-  /// constructor
-  const GreetingsController();
-
   static final _nameRegExp = RegExp(r'[!@#<>?":_`~;[\]\\|=+/)(*&^%0-9-]');
 
   /// Receive user's name, make API call and get, process & return response
