@@ -39,7 +39,6 @@ jobs:
 
       # Install Flutter from previously created Github Action
       - uses: subosito/flutter-action@v1
-        with:
       - run: flutter --version
 
       - name: Get all Flutter Packages # Label for your step to display on GitHub.
