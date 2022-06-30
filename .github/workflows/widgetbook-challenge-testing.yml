@@ -28,7 +28,7 @@ jobs:
       # The branch or tag ref that triggered the workflow will be checked out.
       # See: https://github.com/actions/checkout
       - name: Check out repository code
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       # Install Java from previously created Github Action
       - uses: actions/setup-java@v2
