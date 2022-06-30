@@ -45,7 +45,9 @@ void main() {
         'The controller should return an error message saying something went wrong when an exception that is not `UnexpectedException` is thrown',
         () async {
           final result = await greetingsController.getGreeting(
-              name: 'hi', throwError: true);
+            name: 'hi',
+            throwError: true,
+          );
 
           expect(result, 'Something went wrong. Contact support');
         },
