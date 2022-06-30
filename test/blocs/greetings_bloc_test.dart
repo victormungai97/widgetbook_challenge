@@ -148,7 +148,8 @@ void main() {
             isIn(
               <GreetingsState>[
                 const GreetingsErrorState(
-                    message: 'Unexpected Error has occurred. Try again later'),
+                  message: 'Unexpected Error has occurred. Try again later',
+                ),
                 const GreetingsCompletedState(response: 'Hello WidgetBook'),
               ],
             ),
