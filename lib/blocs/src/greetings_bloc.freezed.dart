@@ -18,19 +18,26 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GreetingsEvent {
   String? get name => throw _privateConstructorUsedError;
   bool get throwError => throw _privateConstructorUsedError;
+  math.Random? get randomNumberGenerator => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? name, bool throwError) request,
+    required TResult Function(
+            String? name, bool throwError, math.Random? randomNumberGenerator)
+        request,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? name, bool throwError)? request,
+    TResult Function(
+            String? name, bool throwError, math.Random? randomNumberGenerator)?
+        request,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? name, bool throwError)? request,
+    TResult Function(
+            String? name, bool throwError, math.Random? randomNumberGenerator)?
+        request,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +68,8 @@ abstract class $GreetingsEventCopyWith<$Res> {
   factory $GreetingsEventCopyWith(
           GreetingsEvent value, $Res Function(GreetingsEvent) then) =
       _$GreetingsEventCopyWithImpl<$Res>;
-  $Res call({String? name, bool throwError});
+  $Res call(
+      {String? name, bool throwError, math.Random? randomNumberGenerator});
 }
 
 /// @nodoc
@@ -77,6 +85,7 @@ class _$GreetingsEventCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? throwError = freezed,
+    Object? randomNumberGenerator = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -87,6 +96,10 @@ class _$GreetingsEventCopyWithImpl<$Res>
           ? _value.throwError
           : throwError // ignore: cast_nullable_to_non_nullable
               as bool,
+      randomNumberGenerator: randomNumberGenerator == freezed
+          ? _value.randomNumberGenerator
+          : randomNumberGenerator // ignore: cast_nullable_to_non_nullable
+              as math.Random?,
     ));
   }
 }
@@ -98,7 +111,8 @@ abstract class _$$GetGreetingEventCopyWith<$Res>
           _$GetGreetingEvent value, $Res Function(_$GetGreetingEvent) then) =
       __$$GetGreetingEventCopyWithImpl<$Res>;
   @override
-  $Res call({String? name, bool throwError});
+  $Res call(
+      {String? name, bool throwError, math.Random? randomNumberGenerator});
 }
 
 /// @nodoc
@@ -116,6 +130,7 @@ class __$$GetGreetingEventCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? throwError = freezed,
+    Object? randomNumberGenerator = freezed,
   }) {
     return _then(_$GetGreetingEvent(
       name: name == freezed
@@ -126,6 +141,10 @@ class __$$GetGreetingEventCopyWithImpl<$Res>
           ? _value.throwError
           : throwError // ignore: cast_nullable_to_non_nullable
               as bool,
+      randomNumberGenerator: randomNumberGenerator == freezed
+          ? _value.randomNumberGenerator
+          : randomNumberGenerator // ignore: cast_nullable_to_non_nullable
+              as math.Random?,
     ));
   }
 }
@@ -135,17 +154,22 @@ class __$$GetGreetingEventCopyWithImpl<$Res>
 class _$GetGreetingEvent
     with DiagnosticableTreeMixin
     implements GetGreetingEvent {
-  const _$GetGreetingEvent({required this.name, this.throwError = false});
+  const _$GetGreetingEvent(
+      {required this.name,
+      this.throwError = false,
+      this.randomNumberGenerator});
 
   @override
   final String? name;
   @override
   @JsonKey()
   final bool throwError;
+  @override
+  final math.Random? randomNumberGenerator;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GreetingsEvent.request(name: $name, throwError: $throwError)';
+    return 'GreetingsEvent.request(name: $name, throwError: $throwError, randomNumberGenerator: $randomNumberGenerator)';
   }
 
   @override
@@ -154,7 +178,9 @@ class _$GetGreetingEvent
     properties
       ..add(DiagnosticsProperty('type', 'GreetingsEvent.request'))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('throwError', throwError));
+      ..add(DiagnosticsProperty('throwError', throwError))
+      ..add(
+          DiagnosticsProperty('randomNumberGenerator', randomNumberGenerator));
   }
 
   @override
@@ -164,14 +190,17 @@ class _$GetGreetingEvent
             other is _$GetGreetingEvent &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
-                .equals(other.throwError, throwError));
+                .equals(other.throwError, throwError) &&
+            const DeepCollectionEquality()
+                .equals(other.randomNumberGenerator, randomNumberGenerator));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(throwError));
+      const DeepCollectionEquality().hash(throwError),
+      const DeepCollectionEquality().hash(randomNumberGenerator));
 
   @JsonKey(ignore: true)
   @override
@@ -181,27 +210,33 @@ class _$GetGreetingEvent
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? name, bool throwError) request,
+    required TResult Function(
+            String? name, bool throwError, math.Random? randomNumberGenerator)
+        request,
   }) {
-    return request(name, throwError);
+    return request(name, throwError, randomNumberGenerator);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? name, bool throwError)? request,
+    TResult Function(
+            String? name, bool throwError, math.Random? randomNumberGenerator)?
+        request,
   }) {
-    return request?.call(name, throwError);
+    return request?.call(name, throwError, randomNumberGenerator);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? name, bool throwError)? request,
+    TResult Function(
+            String? name, bool throwError, math.Random? randomNumberGenerator)?
+        request,
     required TResult orElse(),
   }) {
     if (request != null) {
-      return request(name, throwError);
+      return request(name, throwError, randomNumberGenerator);
     }
     return orElse();
   }
@@ -238,12 +273,15 @@ class _$GetGreetingEvent
 abstract class GetGreetingEvent implements GreetingsEvent {
   const factory GetGreetingEvent(
       {required final String? name,
-      final bool throwError}) = _$GetGreetingEvent;
+      final bool throwError,
+      final math.Random? randomNumberGenerator}) = _$GetGreetingEvent;
 
   @override
   String? get name => throw _privateConstructorUsedError;
   @override
   bool get throwError => throw _privateConstructorUsedError;
+  @override
+  math.Random? get randomNumberGenerator => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$GetGreetingEventCopyWith<_$GetGreetingEvent> get copyWith =>

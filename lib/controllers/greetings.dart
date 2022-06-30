@@ -9,6 +9,7 @@ class GreetingsController extends Controller {
   Future<String> getGreeting({
     required String? name,
     bool throwError = false,
+    math.Random? randomNumberGenerator,
   }) async {
     try {
       if (throwError) throw Exception('This is an exception in controller');
@@ -16,7 +17,9 @@ class GreetingsController extends Controller {
       if (isStringEmpty(name)) return "Please enter the user's name";
       if (_nameRegExp.hasMatch(name!)) return 'Only letters allowed';
       // 2. Make API call
-      final result = await WidgetbookApi().welcomeToWidgetbook(message: name);
+      final result = await WidgetbookApi(
+        randomNumberGenerator: randomNumberGenerator,
+      ).welcomeToWidgetbook(message: name);
       // 3. Process response
       if (isStringEmpty(result)) return 'No response received';
       // 4. Return response

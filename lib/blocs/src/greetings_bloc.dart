@@ -1,13 +1,12 @@
+import 'dart:math' as math;
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'package:widgetbook_challenge/controllers/controller.dart';
 
 part 'greetings_bloc.freezed.dart';
-
 part 'greetings_event.dart';
-
 part 'greetings_state.dart';
 
 /// BLoC class that receives actions from user via events and emits
@@ -18,13 +17,16 @@ class GreetingsBloc extends Bloc<GreetingsEvent, GreetingsState> {
       : super(const GreetingsState.initial()) {
     on<GreetingsEvent>((event, emit) async {
       await event.when(
-        request: (name, throwError) async {
+        request: (name, throwError, randomNumberGenerator) async {
           try {
             if (throwError) throw Exception('This is an exception in BLoC');
             // Make screen load
             emit(const GreetingsState.loading());
             // make API Call and get response
-            final result = await _greetingsController.getGreeting(name: name);
+            final result = await _greetingsController.getGreeting(
+              name: name,
+              randomNumberGenerator: randomNumberGenerator,
+            );
             if (result.toLowerCase().startsWith('hello')) {
               emit(GreetingsState.completed(response: result));
             } else {

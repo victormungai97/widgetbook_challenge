@@ -12,5 +12,6 @@ class GreetingsEvent with _$GreetingsEvent {
   const factory GreetingsEvent.request({
     required String? name,
     @Default(false) bool throwError,
+    math.Random? randomNumberGenerator,
   }) = GetGreetingEvent;
 }
