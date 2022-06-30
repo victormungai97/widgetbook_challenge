@@ -1,7 +1,7 @@
 #!/bin/bash
 
 dart format .
-dart doc .
+#dart doc .
 
 git config user.email "victormungai97@gmail.com"
 git config user.name "Victor Kamau"
