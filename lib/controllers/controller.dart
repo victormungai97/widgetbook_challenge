@@ -3,6 +3,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+
 import 'package:widgetbook_challenge/api/widgetbook_api.dart';
 
 part 'greetings.dart';

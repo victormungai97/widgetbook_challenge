@@ -1,0 +1,45 @@
+# This file defines a CI/CD workflow to run in Github Actions
+
+# Name of workflow.
+name: Flutter Test
+
+# Run the workflow when code is pushed or pull request is made
+# With each event, one can define the branch(es) of code on which to run with `*` representing all branches
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs.
+jobs:
+  # id of job, a string that is unique to the "jobs" node above.
+  build:
+    # Machine / OS on which to execute the job
+    runs-on: ubuntu-latest
+
+    # Sequence of tasks with which to which to execute / install the needed pre-requisites for the job
+    steps:
+      # The branch or tag ref that triggered the workflow will be checked out.
+      # See: https://github.com/actions/checkout
+      - uses: actions/checkout@v3
+
+      # Install Java from previously created Github Action
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - run: java -version
+
+      # Install Flutter from previously created Github Action
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.16.1'
+          channel: 'stable'
+      - run: flutter --version
+
+      - name: Get all Flutter Packages # Label for your step to display on GitHub.
+        run: flutter pub get
+
+      - name: Run Flutter Test
+        run: flutter test

@@ -15,11 +15,12 @@ part 'greetings_state.dart';
 class GreetingsBloc extends Bloc<GreetingsEvent, GreetingsState> {
   /// Constructor for creating instances of [GreetingsBloc]
   GreetingsBloc(this._greetingsController)
-      : super(const _GreetingsInitialState()) {
-    on<GreetingsEvent>((event, emit) {
-      event.when(
-        request: (name) async {
+      : super(const GreetingsState.initial()) {
+    on<GreetingsEvent>((event, emit) async {
+      await event.when(
+        request: (name, throwError) async {
           try {
+            if (throwError) throw Exception('This is an exception in BLoC');
             // Make screen load
             emit(const GreetingsState.loading());
             // make API Call and get response
@@ -29,8 +30,8 @@ class GreetingsBloc extends Bloc<GreetingsEvent, GreetingsState> {
             } else {
               emit(GreetingsState.exception(message: result));
             }
-          } on Exception catch (ex, sTrace) {
-            debugPrint('ERROR GETTING greeting:\t$ex\n--\nSTACKTRACE: $sTrace');
+          } on Exception catch (ex, trace) {
+            debugPrint('ERROR GETTING greeting:\t$ex\n--\nSTACKTRACE: $trace');
             emit(
               const GreetingsState.exception(message: 'Error getting response'),
             );

@@ -16,20 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GreetingsEvent {
-  String get name => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  bool get throwError => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name) request,
+    required TResult Function(String? name, bool throwError) request,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name)? request,
+    TResult Function(String? name, bool throwError)? request,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? request,
+    TResult Function(String? name, bool throwError)? request,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,7 +61,7 @@ abstract class $GreetingsEventCopyWith<$Res> {
   factory $GreetingsEventCopyWith(
           GreetingsEvent value, $Res Function(GreetingsEvent) then) =
       _$GreetingsEventCopyWithImpl<$Res>;
-  $Res call({String name});
+  $Res call({String? name, bool throwError});
 }
 
 /// @nodoc
@@ -75,12 +76,17 @@ class _$GreetingsEventCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? throwError = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      throwError: throwError == freezed
+          ? _value.throwError
+          : throwError // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -92,7 +98,7 @@ abstract class _$$GetGreetingEventCopyWith<$Res>
           _$GetGreetingEvent value, $Res Function(_$GetGreetingEvent) then) =
       __$$GetGreetingEventCopyWithImpl<$Res>;
   @override
-  $Res call({String name});
+  $Res call({String? name, bool throwError});
 }
 
 /// @nodoc
@@ -109,12 +115,17 @@ class __$$GetGreetingEventCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? throwError = freezed,
   }) {
     return _then(_$GetGreetingEvent(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      throwError: throwError == freezed
+          ? _value.throwError
+          : throwError // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -124,14 +135,17 @@ class __$$GetGreetingEventCopyWithImpl<$Res>
 class _$GetGreetingEvent
     with DiagnosticableTreeMixin
     implements GetGreetingEvent {
-  const _$GetGreetingEvent({required this.name});
+  const _$GetGreetingEvent({required this.name, this.throwError = false});
 
   @override
-  final String name;
+  final String? name;
+  @override
+  @JsonKey()
+  final bool throwError;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GreetingsEvent.request(name: $name)';
+    return 'GreetingsEvent.request(name: $name, throwError: $throwError)';
   }
 
   @override
@@ -139,7 +153,8 @@ class _$GetGreetingEvent
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'GreetingsEvent.request'))
-      ..add(DiagnosticsProperty('name', name));
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('throwError', throwError));
   }
 
   @override
@@ -147,12 +162,16 @@ class _$GetGreetingEvent
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetGreetingEvent &&
-            const DeepCollectionEquality().equals(other.name, name));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.throwError, throwError));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(name));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(throwError));
 
   @JsonKey(ignore: true)
   @override
@@ -162,27 +181,27 @@ class _$GetGreetingEvent
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name) request,
+    required TResult Function(String? name, bool throwError) request,
   }) {
-    return request(name);
+    return request(name, throwError);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String name)? request,
+    TResult Function(String? name, bool throwError)? request,
   }) {
-    return request?.call(name);
+    return request?.call(name, throwError);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? request,
+    TResult Function(String? name, bool throwError)? request,
     required TResult orElse(),
   }) {
     if (request != null) {
-      return request(name);
+      return request(name, throwError);
     }
     return orElse();
   }
@@ -217,11 +236,14 @@ class _$GetGreetingEvent
 }
 
 abstract class GetGreetingEvent implements GreetingsEvent {
-  const factory GetGreetingEvent({required final String name}) =
-      _$GetGreetingEvent;
+  const factory GetGreetingEvent(
+      {required final String? name,
+      final bool throwError}) = _$GetGreetingEvent;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  @override
+  bool get throwError => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$GetGreetingEventCopyWith<_$GetGreetingEvent> get copyWith =>
@@ -257,26 +279,26 @@ mixin _$GreetingsState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GreetingsInitialState value) initial,
-    required TResult Function(_GreetingsLoadingState value) loading,
-    required TResult Function(_GreetingsCompletedState value) completed,
-    required TResult Function(_GreetingsErrorState value) exception,
+    required TResult Function(GreetingsInitialState value) initial,
+    required TResult Function(GreetingsLoadingState value) loading,
+    required TResult Function(GreetingsCompletedState value) completed,
+    required TResult Function(GreetingsErrorState value) exception,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GreetingsInitialState value)? initial,
-    TResult Function(_GreetingsLoadingState value)? loading,
-    TResult Function(_GreetingsCompletedState value)? completed,
-    TResult Function(_GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitialState value)? initial,
+    TResult Function(GreetingsLoadingState value)? loading,
+    TResult Function(GreetingsCompletedState value)? completed,
+    TResult Function(GreetingsErrorState value)? exception,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GreetingsInitialState value)? initial,
-    TResult Function(_GreetingsLoadingState value)? loading,
-    TResult Function(_GreetingsCompletedState value)? completed,
-    TResult Function(_GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitialState value)? initial,
+    TResult Function(GreetingsLoadingState value)? loading,
+    TResult Function(GreetingsCompletedState value)? completed,
+    TResult Function(GreetingsErrorState value)? exception,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -300,31 +322,30 @@ class _$GreetingsStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$_GreetingsInitialStateCopyWith<$Res> {
-  factory _$$_GreetingsInitialStateCopyWith(_$_GreetingsInitialState value,
-          $Res Function(_$_GreetingsInitialState) then) =
-      __$$_GreetingsInitialStateCopyWithImpl<$Res>;
+abstract class _$$GreetingsInitialStateCopyWith<$Res> {
+  factory _$$GreetingsInitialStateCopyWith(_$GreetingsInitialState value,
+          $Res Function(_$GreetingsInitialState) then) =
+      __$$GreetingsInitialStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_GreetingsInitialStateCopyWithImpl<$Res>
+class __$$GreetingsInitialStateCopyWithImpl<$Res>
     extends _$GreetingsStateCopyWithImpl<$Res>
-    implements _$$_GreetingsInitialStateCopyWith<$Res> {
-  __$$_GreetingsInitialStateCopyWithImpl(_$_GreetingsInitialState _value,
-      $Res Function(_$_GreetingsInitialState) _then)
-      : super(_value, (v) => _then(v as _$_GreetingsInitialState));
+    implements _$$GreetingsInitialStateCopyWith<$Res> {
+  __$$GreetingsInitialStateCopyWithImpl(_$GreetingsInitialState _value,
+      $Res Function(_$GreetingsInitialState) _then)
+      : super(_value, (v) => _then(v as _$GreetingsInitialState));
 
   @override
-  _$_GreetingsInitialState get _value =>
-      super._value as _$_GreetingsInitialState;
+  _$GreetingsInitialState get _value => super._value as _$GreetingsInitialState;
 }
 
 /// @nodoc
 
-class _$_GreetingsInitialState
+class _$GreetingsInitialState
     with DiagnosticableTreeMixin
-    implements _GreetingsInitialState {
-  const _$_GreetingsInitialState();
+    implements GreetingsInitialState {
+  const _$GreetingsInitialState();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -340,7 +361,7 @@ class _$_GreetingsInitialState
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GreetingsInitialState);
+        (other.runtimeType == runtimeType && other is _$GreetingsInitialState);
   }
 
   @override
@@ -386,10 +407,10 @@ class _$_GreetingsInitialState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GreetingsInitialState value) initial,
-    required TResult Function(_GreetingsLoadingState value) loading,
-    required TResult Function(_GreetingsCompletedState value) completed,
-    required TResult Function(_GreetingsErrorState value) exception,
+    required TResult Function(GreetingsInitialState value) initial,
+    required TResult Function(GreetingsLoadingState value) loading,
+    required TResult Function(GreetingsCompletedState value) completed,
+    required TResult Function(GreetingsErrorState value) exception,
   }) {
     return initial(this);
   }
@@ -397,10 +418,10 @@ class _$_GreetingsInitialState
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GreetingsInitialState value)? initial,
-    TResult Function(_GreetingsLoadingState value)? loading,
-    TResult Function(_GreetingsCompletedState value)? completed,
-    TResult Function(_GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitialState value)? initial,
+    TResult Function(GreetingsLoadingState value)? loading,
+    TResult Function(GreetingsCompletedState value)? completed,
+    TResult Function(GreetingsErrorState value)? exception,
   }) {
     return initial?.call(this);
   }
@@ -408,10 +429,10 @@ class _$_GreetingsInitialState
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GreetingsInitialState value)? initial,
-    TResult Function(_GreetingsLoadingState value)? loading,
-    TResult Function(_GreetingsCompletedState value)? completed,
-    TResult Function(_GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitialState value)? initial,
+    TResult Function(GreetingsLoadingState value)? loading,
+    TResult Function(GreetingsCompletedState value)? completed,
+    TResult Function(GreetingsErrorState value)? exception,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -421,36 +442,35 @@ class _$_GreetingsInitialState
   }
 }
 
-abstract class _GreetingsInitialState implements GreetingsState {
-  const factory _GreetingsInitialState() = _$_GreetingsInitialState;
+abstract class GreetingsInitialState implements GreetingsState {
+  const factory GreetingsInitialState() = _$GreetingsInitialState;
 }
 
 /// @nodoc
-abstract class _$$_GreetingsLoadingStateCopyWith<$Res> {
-  factory _$$_GreetingsLoadingStateCopyWith(_$_GreetingsLoadingState value,
-          $Res Function(_$_GreetingsLoadingState) then) =
-      __$$_GreetingsLoadingStateCopyWithImpl<$Res>;
+abstract class _$$GreetingsLoadingStateCopyWith<$Res> {
+  factory _$$GreetingsLoadingStateCopyWith(_$GreetingsLoadingState value,
+          $Res Function(_$GreetingsLoadingState) then) =
+      __$$GreetingsLoadingStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_GreetingsLoadingStateCopyWithImpl<$Res>
+class __$$GreetingsLoadingStateCopyWithImpl<$Res>
     extends _$GreetingsStateCopyWithImpl<$Res>
-    implements _$$_GreetingsLoadingStateCopyWith<$Res> {
-  __$$_GreetingsLoadingStateCopyWithImpl(_$_GreetingsLoadingState _value,
-      $Res Function(_$_GreetingsLoadingState) _then)
-      : super(_value, (v) => _then(v as _$_GreetingsLoadingState));
+    implements _$$GreetingsLoadingStateCopyWith<$Res> {
+  __$$GreetingsLoadingStateCopyWithImpl(_$GreetingsLoadingState _value,
+      $Res Function(_$GreetingsLoadingState) _then)
+      : super(_value, (v) => _then(v as _$GreetingsLoadingState));
 
   @override
-  _$_GreetingsLoadingState get _value =>
-      super._value as _$_GreetingsLoadingState;
+  _$GreetingsLoadingState get _value => super._value as _$GreetingsLoadingState;
 }
 
 /// @nodoc
 
-class _$_GreetingsLoadingState
+class _$GreetingsLoadingState
     with DiagnosticableTreeMixin
-    implements _GreetingsLoadingState {
-  const _$_GreetingsLoadingState();
+    implements GreetingsLoadingState {
+  const _$GreetingsLoadingState();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -466,7 +486,7 @@ class _$_GreetingsLoadingState
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GreetingsLoadingState);
+        (other.runtimeType == runtimeType && other is _$GreetingsLoadingState);
   }
 
   @override
@@ -512,10 +532,10 @@ class _$_GreetingsLoadingState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GreetingsInitialState value) initial,
-    required TResult Function(_GreetingsLoadingState value) loading,
-    required TResult Function(_GreetingsCompletedState value) completed,
-    required TResult Function(_GreetingsErrorState value) exception,
+    required TResult Function(GreetingsInitialState value) initial,
+    required TResult Function(GreetingsLoadingState value) loading,
+    required TResult Function(GreetingsCompletedState value) completed,
+    required TResult Function(GreetingsErrorState value) exception,
   }) {
     return loading(this);
   }
@@ -523,10 +543,10 @@ class _$_GreetingsLoadingState
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GreetingsInitialState value)? initial,
-    TResult Function(_GreetingsLoadingState value)? loading,
-    TResult Function(_GreetingsCompletedState value)? completed,
-    TResult Function(_GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitialState value)? initial,
+    TResult Function(GreetingsLoadingState value)? loading,
+    TResult Function(GreetingsCompletedState value)? completed,
+    TResult Function(GreetingsErrorState value)? exception,
   }) {
     return loading?.call(this);
   }
@@ -534,10 +554,10 @@ class _$_GreetingsLoadingState
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GreetingsInitialState value)? initial,
-    TResult Function(_GreetingsLoadingState value)? loading,
-    TResult Function(_GreetingsCompletedState value)? completed,
-    TResult Function(_GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitialState value)? initial,
+    TResult Function(GreetingsLoadingState value)? loading,
+    TResult Function(GreetingsCompletedState value)? completed,
+    TResult Function(GreetingsErrorState value)? exception,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -547,35 +567,35 @@ class _$_GreetingsLoadingState
   }
 }
 
-abstract class _GreetingsLoadingState implements GreetingsState {
-  const factory _GreetingsLoadingState() = _$_GreetingsLoadingState;
+abstract class GreetingsLoadingState implements GreetingsState {
+  const factory GreetingsLoadingState() = _$GreetingsLoadingState;
 }
 
 /// @nodoc
-abstract class _$$_GreetingsCompletedStateCopyWith<$Res> {
-  factory _$$_GreetingsCompletedStateCopyWith(_$_GreetingsCompletedState value,
-          $Res Function(_$_GreetingsCompletedState) then) =
-      __$$_GreetingsCompletedStateCopyWithImpl<$Res>;
+abstract class _$$GreetingsCompletedStateCopyWith<$Res> {
+  factory _$$GreetingsCompletedStateCopyWith(_$GreetingsCompletedState value,
+          $Res Function(_$GreetingsCompletedState) then) =
+      __$$GreetingsCompletedStateCopyWithImpl<$Res>;
   $Res call({String? response});
 }
 
 /// @nodoc
-class __$$_GreetingsCompletedStateCopyWithImpl<$Res>
+class __$$GreetingsCompletedStateCopyWithImpl<$Res>
     extends _$GreetingsStateCopyWithImpl<$Res>
-    implements _$$_GreetingsCompletedStateCopyWith<$Res> {
-  __$$_GreetingsCompletedStateCopyWithImpl(_$_GreetingsCompletedState _value,
-      $Res Function(_$_GreetingsCompletedState) _then)
-      : super(_value, (v) => _then(v as _$_GreetingsCompletedState));
+    implements _$$GreetingsCompletedStateCopyWith<$Res> {
+  __$$GreetingsCompletedStateCopyWithImpl(_$GreetingsCompletedState _value,
+      $Res Function(_$GreetingsCompletedState) _then)
+      : super(_value, (v) => _then(v as _$GreetingsCompletedState));
 
   @override
-  _$_GreetingsCompletedState get _value =>
-      super._value as _$_GreetingsCompletedState;
+  _$GreetingsCompletedState get _value =>
+      super._value as _$GreetingsCompletedState;
 
   @override
   $Res call({
     Object? response = freezed,
   }) {
-    return _then(_$_GreetingsCompletedState(
+    return _then(_$GreetingsCompletedState(
       response: response == freezed
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
@@ -586,10 +606,10 @@ class __$$_GreetingsCompletedStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GreetingsCompletedState
+class _$GreetingsCompletedState
     with DiagnosticableTreeMixin
-    implements _GreetingsCompletedState {
-  const _$_GreetingsCompletedState({this.response});
+    implements GreetingsCompletedState {
+  const _$GreetingsCompletedState({this.response});
 
   @override
   final String? response;
@@ -611,7 +631,7 @@ class _$_GreetingsCompletedState
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GreetingsCompletedState &&
+            other is _$GreetingsCompletedState &&
             const DeepCollectionEquality().equals(other.response, response));
   }
 
@@ -621,10 +641,9 @@ class _$_GreetingsCompletedState
 
   @JsonKey(ignore: true)
   @override
-  _$$_GreetingsCompletedStateCopyWith<_$_GreetingsCompletedState>
-      get copyWith =>
-          __$$_GreetingsCompletedStateCopyWithImpl<_$_GreetingsCompletedState>(
-              this, _$identity);
+  _$$GreetingsCompletedStateCopyWith<_$GreetingsCompletedState> get copyWith =>
+      __$$GreetingsCompletedStateCopyWithImpl<_$GreetingsCompletedState>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -666,10 +685,10 @@ class _$_GreetingsCompletedState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GreetingsInitialState value) initial,
-    required TResult Function(_GreetingsLoadingState value) loading,
-    required TResult Function(_GreetingsCompletedState value) completed,
-    required TResult Function(_GreetingsErrorState value) exception,
+    required TResult Function(GreetingsInitialState value) initial,
+    required TResult Function(GreetingsLoadingState value) loading,
+    required TResult Function(GreetingsCompletedState value) completed,
+    required TResult Function(GreetingsErrorState value) exception,
   }) {
     return completed(this);
   }
@@ -677,10 +696,10 @@ class _$_GreetingsCompletedState
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GreetingsInitialState value)? initial,
-    TResult Function(_GreetingsLoadingState value)? loading,
-    TResult Function(_GreetingsCompletedState value)? completed,
-    TResult Function(_GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitialState value)? initial,
+    TResult Function(GreetingsLoadingState value)? loading,
+    TResult Function(GreetingsCompletedState value)? completed,
+    TResult Function(GreetingsErrorState value)? exception,
   }) {
     return completed?.call(this);
   }
@@ -688,10 +707,10 @@ class _$_GreetingsCompletedState
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GreetingsInitialState value)? initial,
-    TResult Function(_GreetingsLoadingState value)? loading,
-    TResult Function(_GreetingsCompletedState value)? completed,
-    TResult Function(_GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitialState value)? initial,
+    TResult Function(GreetingsLoadingState value)? loading,
+    TResult Function(GreetingsCompletedState value)? completed,
+    TResult Function(GreetingsErrorState value)? exception,
     required TResult orElse(),
   }) {
     if (completed != null) {
@@ -701,40 +720,40 @@ class _$_GreetingsCompletedState
   }
 }
 
-abstract class _GreetingsCompletedState implements GreetingsState {
-  const factory _GreetingsCompletedState({final String? response}) =
-      _$_GreetingsCompletedState;
+abstract class GreetingsCompletedState implements GreetingsState {
+  const factory GreetingsCompletedState({final String? response}) =
+      _$GreetingsCompletedState;
 
   String? get response => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$$_GreetingsCompletedStateCopyWith<_$_GreetingsCompletedState>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$GreetingsCompletedStateCopyWith<_$GreetingsCompletedState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_GreetingsErrorStateCopyWith<$Res> {
-  factory _$$_GreetingsErrorStateCopyWith(_$_GreetingsErrorState value,
-          $Res Function(_$_GreetingsErrorState) then) =
-      __$$_GreetingsErrorStateCopyWithImpl<$Res>;
+abstract class _$$GreetingsErrorStateCopyWith<$Res> {
+  factory _$$GreetingsErrorStateCopyWith(_$GreetingsErrorState value,
+          $Res Function(_$GreetingsErrorState) then) =
+      __$$GreetingsErrorStateCopyWithImpl<$Res>;
   $Res call({String message});
 }
 
 /// @nodoc
-class __$$_GreetingsErrorStateCopyWithImpl<$Res>
+class __$$GreetingsErrorStateCopyWithImpl<$Res>
     extends _$GreetingsStateCopyWithImpl<$Res>
-    implements _$$_GreetingsErrorStateCopyWith<$Res> {
-  __$$_GreetingsErrorStateCopyWithImpl(_$_GreetingsErrorState _value,
-      $Res Function(_$_GreetingsErrorState) _then)
-      : super(_value, (v) => _then(v as _$_GreetingsErrorState));
+    implements _$$GreetingsErrorStateCopyWith<$Res> {
+  __$$GreetingsErrorStateCopyWithImpl(
+      _$GreetingsErrorState _value, $Res Function(_$GreetingsErrorState) _then)
+      : super(_value, (v) => _then(v as _$GreetingsErrorState));
 
   @override
-  _$_GreetingsErrorState get _value => super._value as _$_GreetingsErrorState;
+  _$GreetingsErrorState get _value => super._value as _$GreetingsErrorState;
 
   @override
   $Res call({
     Object? message = freezed,
   }) {
-    return _then(_$_GreetingsErrorState(
+    return _then(_$GreetingsErrorState(
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -745,10 +764,10 @@ class __$$_GreetingsErrorStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GreetingsErrorState
+class _$GreetingsErrorState
     with DiagnosticableTreeMixin
-    implements _GreetingsErrorState {
-  const _$_GreetingsErrorState({required this.message});
+    implements GreetingsErrorState {
+  const _$GreetingsErrorState({required this.message});
 
   @override
   final String message;
@@ -770,7 +789,7 @@ class _$_GreetingsErrorState
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GreetingsErrorState &&
+            other is _$GreetingsErrorState &&
             const DeepCollectionEquality().equals(other.message, message));
   }
 
@@ -780,8 +799,8 @@ class _$_GreetingsErrorState
 
   @JsonKey(ignore: true)
   @override
-  _$$_GreetingsErrorStateCopyWith<_$_GreetingsErrorState> get copyWith =>
-      __$$_GreetingsErrorStateCopyWithImpl<_$_GreetingsErrorState>(
+  _$$GreetingsErrorStateCopyWith<_$GreetingsErrorState> get copyWith =>
+      __$$GreetingsErrorStateCopyWithImpl<_$GreetingsErrorState>(
           this, _$identity);
 
   @override
@@ -824,10 +843,10 @@ class _$_GreetingsErrorState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GreetingsInitialState value) initial,
-    required TResult Function(_GreetingsLoadingState value) loading,
-    required TResult Function(_GreetingsCompletedState value) completed,
-    required TResult Function(_GreetingsErrorState value) exception,
+    required TResult Function(GreetingsInitialState value) initial,
+    required TResult Function(GreetingsLoadingState value) loading,
+    required TResult Function(GreetingsCompletedState value) completed,
+    required TResult Function(GreetingsErrorState value) exception,
   }) {
     return exception(this);
   }
@@ -835,10 +854,10 @@ class _$_GreetingsErrorState
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_GreetingsInitialState value)? initial,
-    TResult Function(_GreetingsLoadingState value)? loading,
-    TResult Function(_GreetingsCompletedState value)? completed,
-    TResult Function(_GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitialState value)? initial,
+    TResult Function(GreetingsLoadingState value)? loading,
+    TResult Function(GreetingsCompletedState value)? completed,
+    TResult Function(GreetingsErrorState value)? exception,
   }) {
     return exception?.call(this);
   }
@@ -846,10 +865,10 @@ class _$_GreetingsErrorState
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GreetingsInitialState value)? initial,
-    TResult Function(_GreetingsLoadingState value)? loading,
-    TResult Function(_GreetingsCompletedState value)? completed,
-    TResult Function(_GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitialState value)? initial,
+    TResult Function(GreetingsLoadingState value)? loading,
+    TResult Function(GreetingsCompletedState value)? completed,
+    TResult Function(GreetingsErrorState value)? exception,
     required TResult orElse(),
   }) {
     if (exception != null) {
@@ -859,12 +878,12 @@ class _$_GreetingsErrorState
   }
 }
 
-abstract class _GreetingsErrorState implements GreetingsState {
-  const factory _GreetingsErrorState({required final String message}) =
-      _$_GreetingsErrorState;
+abstract class GreetingsErrorState implements GreetingsState {
+  const factory GreetingsErrorState({required final String message}) =
+      _$GreetingsErrorState;
 
   String get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$$_GreetingsErrorStateCopyWith<_$_GreetingsErrorState> get copyWith =>
+  _$$GreetingsErrorStateCopyWith<_$GreetingsErrorState> get copyWith =>
       throw _privateConstructorUsedError;
 }
