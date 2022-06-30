@@ -1,10 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook_challenge/app.dart';
+import 'package:widgetbook_challenge/controllers/controller.dart';
 
 void main() {
-  testWidgets('$App contains reminder', (WidgetTester tester) async {
-    await tester.pumpWidget(const App());
+  group('Initial Widget Test', () {
+    late GreetingsController greetingsController;
 
-    expect(find.text('Hello Flutter enthusiast!'), findsOneWidget);
+    setUp(() => greetingsController = GreetingsController());
+
+    testWidgets('$App contains reminder', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        App(
+          greetingsController: greetingsController,
+        ),
+      );
+
+      expect(find.text('Hello Flutter enthusiast!'), findsOneWidget);
+    });
   });
 }

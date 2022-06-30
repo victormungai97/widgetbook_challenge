@@ -6,11 +6,15 @@ class GreetingsController extends Controller {
   static final _nameRegExp = RegExp(r'[!@#<>?":_`~;[\]\\|=+/)(*&^%0-9-]');
 
   /// Receive user's name, make API call and get, process & return response
-  Future<String> getGreeting({required String name}) async {
+  Future<String> getGreeting({
+    required String? name,
+    bool throwError = false,
+  }) async {
     try {
+      if (throwError) throw Exception('This is an exception in controller');
       // 1. Authenticate name
       if (isStringEmpty(name)) return "Please enter the user's name";
-      if (_nameRegExp.hasMatch(name)) return 'Only letters allowed';
+      if (_nameRegExp.hasMatch(name!)) return 'Only letters allowed';
       // 2. Make API call
       final result = await WidgetbookApi().welcomeToWidgetbook(message: name);
       // 3. Process response
