@@ -81,7 +81,7 @@ void main() {
         """,
         () async {
           final result =
-              await greetingsController.getGreeting(name: 'WidgetBook');
+              await greetingsController.getGreeting(name: 'WidgetBook.');
           expect(
             result,
             isIn(<String>[
