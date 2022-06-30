@@ -44,7 +44,7 @@ jobs:
       - name: Get all Flutter Packages # Label for your step to display on GitHub.
         run: flutter pub get # This will execute the command provided to it
 
-      - name: Analyze Flutter Project
+      - name: Check for lint issues in our Project
         run: flutter analyze
 
       - name: Test Flutter App
