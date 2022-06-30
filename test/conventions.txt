@@ -1,0 +1,12 @@
+A FEW CONVENTIONS WITH REGARDS TO FLUTTER TESTING
+Sources: https://www.youtube.com/watch?v=RDY6UYh-nyg
+
+for bloc test, you
+1. provide the bloc/cubit in `build`,
+2. add the event/call function in `act` and
+3. list the expected state(s) in the order of being emitted in `expect`
+
+for naming/describing an individual test, go with
+1. (Given) some context
+2. (When) some action is carried out
+3. (Then) a particular set of observable consequences should obtain

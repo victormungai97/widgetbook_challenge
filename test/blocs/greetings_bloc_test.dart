@@ -1,8 +1,4 @@
 /// Define tests for the Greetings Bloc
-/// // for bloc test, you
-/// 1. provide the bloc/cubit in `build`,
-/// 2. add the event/call function in `act` and
-/// 3. list the expected state(s) in the order of being emitted in `expect`
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:test/test.dart';
@@ -41,7 +37,12 @@ void main() {
 
       // b) Test when no/empty name is provided for greeting
       blocTest<GreetingsBloc, GreetingsState>(
-        "The bloc should emit an error message asking for the user's name when a null string is provided",
+        """
+        Given null string submitted as name
+        When greeting event is sent to Bloc
+        Then loading state then error state containing message 
+          asking for user's name is emitted
+        """,
         build: () => greetingsBloc,
         act: (bloc) {
           greetingsBloc.add(const GetGreetingEvent(name: null));
@@ -53,7 +54,12 @@ void main() {
       );
 
       blocTest<GreetingsBloc, GreetingsState>(
-        "The bloc should emit an error message asking for the user's name when an empty string is provided",
+        """
+        Given an empty string submitted as name
+        When greeting event is sent to Bloc
+        Then loading state then error state containing message 
+          asking for user's name is emitted
+        """,
         build: () => greetingsBloc,
         act: (bloc) {
           greetingsBloc.add(const GetGreetingEvent(name: ''));
@@ -66,7 +72,13 @@ void main() {
 
       // c) Test when provided name contains non - whitespace / letter character
       blocTest<GreetingsBloc, GreetingsState>(
-        'The bloc should emit an error message when name contains a character that is not a letter or whitespace',
+        '''
+        Given a name containing character(s) that are not letters or whitespace
+          is submitted
+        When greeting event is sent to Bloc
+        Then loading state then error state containing message 
+          asking for letters only is emitted
+        ''',
         build: () => greetingsBloc,
         act: (bloc) {
           greetingsBloc.add(const GetGreetingEvent(name: '|'));
@@ -79,11 +91,17 @@ void main() {
 
       // d) Test when an error that is not [UnexpectedException] occurs
       blocTest<GreetingsBloc, GreetingsState>(
-        'The bloc should emit an error message saying error getting response when an exception that is not `UnexpectedException` is thrown',
+        '''
+        Given error that is not `UnexpectedException` is thrown
+        When greeting event is sent to Bloc
+        Then loading state then error state containing message 
+          informing user that error occurred is emitted
+        ''',
         build: () => greetingsBloc,
         act: (bloc) {
-          greetingsBloc
-              .add(const GetGreetingEvent(name: 'hi', throwError: true));
+          greetingsBloc.add(
+            const GetGreetingEvent(name: 'hi', throwError: true),
+          );
         },
         expect: () => <GreetingsState>[
           const GreetingsErrorState(message: 'Error getting response'),
@@ -92,7 +110,13 @@ void main() {
 
       // e) Test when proper name (with only letters & whitespace) is provided
       test(
-        'The bloc should emit a success message containing hello name or an error message of `Unexpected Error` when a correct name containing only letters and/or whitespace is given',
+        """
+        Given proper name containing only letters and/or whitespace is submitted
+        When greeting event is sent to Bloc
+        Then completed state containing message saying 'Hello `name`'
+          or an error state with message of `Unexpected Error` indicating 
+            [UnexpectedException] is emitted after loading state
+        """,
         () async {
           greetingsBloc.add(const GetGreetingEvent(name: 'WidgetBook'));
           // skip loading State then return the next state
