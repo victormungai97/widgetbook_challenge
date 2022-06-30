@@ -3,26 +3,32 @@
 # Name of workflow.
 name: Flutter Test
 
-# Run the workflow when code is pushed or pull request is made
+# Controls when the workflow will run depending on given event(s) e.g. pushing code using git push
 # With each event, one can define the branch(es) of code on which to run with `*` representing all branches
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '**/README.md'
+  pull_request:
+    branches: [ main ]
 
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs.
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # id of job, a string that is unique to the "jobs" node above.
   build:
-    # Machine / OS on which to execute the job
+    # Type of virtual machine (runner) on which to execute the job
     runs-on: ubuntu-latest
 
-    # Sequence of tasks with which to which to execute / install the needed pre-requisites for the job
+    # Sequence of tasks/actions/shell commands with which to which to execute / install the needed pre-requisites for the job
     steps:
       # The branch or tag ref that triggered the workflow will be checked out.
       # See: https://github.com/actions/checkout
-      - uses: actions/checkout@v3
+      - name: Check out repository code
+        uses: actions/checkout@v3
 
       # Install Java from previously created Github Action
       - uses: actions/setup-java@v2
@@ -35,11 +41,10 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '2.16.1'
-          channel: 'stable'
       - run: flutter --version
 
       - name: Get all Flutter Packages # Label for your step to display on GitHub.
-        run: flutter pub get
+        run: flutter pub get # This will execute the command provided to it
 
       - name: Run Flutter Test
         run: flutter test
