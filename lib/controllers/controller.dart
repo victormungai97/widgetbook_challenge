@@ -1,6 +1,8 @@
 /// This file exposes the controllers in the folder
 /// These controllers are where actual business logic eg server calls will run
 
+import 'dart:math' as math;
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 

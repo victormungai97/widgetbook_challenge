@@ -10,5 +10,6 @@ analyzer:
     - '**/*.g.dart'
     - '**/*.freezed.dart'
     - '**/*.config.dart'
+    - '**/*.mocks.dart'
   errors:
     invalid_annotation_target: ignore
