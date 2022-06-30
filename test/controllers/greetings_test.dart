@@ -16,7 +16,11 @@ void main() {
 
       // i) Test when no/empty name is provided for greeting
       test(
-        "The controller should return an error message asking for the user's name when a null string is provided",
+        """
+        Given a user submitting null string as name
+        When greeting request is made
+        Then error message asking for user's name is returned
+        """,
         () async {
           final result = await greetingsController.getGreeting(name: null);
           expect(result, "Please enter the user's name");
@@ -24,7 +28,11 @@ void main() {
       );
 
       test(
-        "The controller should return an error message asking for the user's name when an empty string is provided",
+        """
+        Given a user submitting empty string as name
+        When greeting request is made
+        Then error message asking for user's name is returned
+        """,
         () async {
           final result = await greetingsController.getGreeting(name: '');
           expect(result, "Please enter the user's name");
@@ -33,7 +41,13 @@ void main() {
 
       // ii) Test when provided name contains non - whitespace / letter character
       test(
-        'The controller should return an error message when name contains a character that is not a letter or whitespace',
+        '''
+        Given a user submitting name that contains character(s) that
+          is not a letter or whitespace
+        When greeting request is made
+        Then error message informing them to only input letters 
+          in name is returned
+        ''',
         () async {
           final result = await greetingsController.getGreeting(name: '1');
           expect(result, 'Only letters allowed');
@@ -42,7 +56,11 @@ void main() {
 
       // iii) Test when an error that is not [UnexpectedException] occurs
       test(
-        'The controller should return an error message saying something went wrong when an exception that is not `UnexpectedException` is thrown',
+        '''
+        Given an exception that is not `UnexpectedException` occurring
+        When greeting request is made
+        Then error message informing user that something went wrong is returned
+        ''',
         () async {
           final result = await greetingsController.getGreeting(
             name: 'hi',
@@ -55,7 +73,12 @@ void main() {
 
       // iv) Test when proper name (with only letters & whitespace) is provided
       test(
-        'The controller should return a success message containing hello name or an error message of `Unexpected Error` when a correct name containing only letters and/or whitespace is given',
+        """
+        Given a user submitting a proper name containing only letters/whitespace
+        When greeting request is made
+        Then a success message saying 'Hello `name`' 
+          or an error message of `Unexpected Error`is returned
+        """,
         () async {
           final result =
               await greetingsController.getGreeting(name: 'WidgetBook');
