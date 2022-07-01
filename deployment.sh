@@ -1,5 +1,8 @@
 #!/bin/bash
 
+flutter packages pub run build_runner build --delete-conflicting-outputs
+chmod +x update_pubspec_version.py
+./update_pubspec_version.py
 dart format .
 #dart doc .
 
