@@ -37,14 +37,14 @@ def update(version_number: str = None, build_number: str = None):
             )
 
         if not build_number:
-            # Generate from current date and time, from year (e.g. 2022) to seconds (e.g. 56)
+            # Generate from current date and time, consisting of year (e.g 2013), month (e.g 09), day (e.g 08) and hour (e.g 07)
 
             import datetime
             from dateutil import tz
 
             build_number = datetime.datetime.now(
                 tz=tz.gettz("Africa/Nairobi")
-            ).strftime("%Y%m%d%H%M%S")
+            ).strftime("%Y%m%d%H")
 
         else:
             # Ensure digit given
