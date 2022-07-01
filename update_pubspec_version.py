@@ -61,7 +61,11 @@ def update(version_number: str = None, build_number: str = None):
         for line in fileinput.input(["pubspec.yaml"], inplace=True):
             if line.strip().startswith("version: "):
                 prev_version, prev_build = tuple(line.split(":")[-1].strip().split("+"))
-                line = f"version: {version_number or prev_version}+{build_number or prev_build}\n"
+                # Build number must change for successful release of Android App on Google Play
+                # Therefore if new & old version and build numbers are the same, add 1 to build number
+                if version_number == prev_version and build_number == prev_build:
+                    build_number = int(build_number) + 1
+                line = f"version: {version_number or prev_version}+{build_number}\n"
             sys.stdout.write(line)
     except (BaseException,) as err:
         print(err)
