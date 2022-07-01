@@ -1,6 +1,6 @@
 # This file defines a CI/CD workflow to run in Github Actions with focus on builds
 
-# This workflow shall build the flutter app for various platform
+# This workflow shall build the flutter app for various platforms
 # and shall only run when the testing workflow is executed or completed
 # using the workflow_run event as a trigger
 # Source: https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#workflow_run
@@ -85,3 +85,4 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - run: echo 'The test workflow that triggered this workflow failed'
+      - run: echo 'We shall now notify administrators of this failure'
