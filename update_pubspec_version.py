@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import re
+
 validate_version_number = (
     lambda x: re.search("\.", x)
     and len(x.split(".")) == 3
@@ -42,6 +44,11 @@ def compare_version_numbers(old_version: str = None, new_version: str = None):
 
 def update(version: str = None, build: str = None):
     try:
+        import os
+
+        if not os.path.isfile("pubspec.yaml"):
+            raise FileNotFoundError("Pubspec YAML file `pubspec.yaml` missing")
+
         # Check version number is provided and matches the appropriate pattern of 3 numbers connected by dots e.g 1.0.0
         if (
             not version
@@ -98,7 +105,7 @@ def update(version: str = None, build: str = None):
                 # Build number must change for successful release of Android App on Google Play
                 # Therefore if new & old version and build numbers are the same, add 1 to build number
                 build_number = (
-                    int(new_build) + 1
+                    int(old_build) + 1
                     if version_number == old_version and new_build <= old_build
                     else new_build
                 )
@@ -137,12 +144,5 @@ if __name__ == "__main__":
 
     # Execute the parse_args() method
     args = my_parser.parse_args()
-
-    import os
-
-    if not os.path.isfile("pubspec.yaml"):
-        raise FileNotFoundError("Pubspec file missing")
-
-    import re
 
     update(version=args.version_number, build=args.build_number)
