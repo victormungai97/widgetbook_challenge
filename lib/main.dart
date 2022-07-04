@@ -10,7 +10,7 @@ void main() async {
 
   // set up to start up bloc
   BlocOverrides.runZoned(
-    () => runApp(App(greetingsController: GreetingsController())),
+    () => runApp(const App(greetingsController: GreetingsController())),
     // Observe state changes
     blocObserver: SimpleBlocObserver(),
   );

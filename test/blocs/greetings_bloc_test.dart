@@ -21,27 +21,34 @@ void main() {
 
       late GreetingsBloc greetingsBloc;
 
-      late MockRandom mockRandom;
+      late math.Random mockRandom;
+
+      late GreetingsBloc unMockedBloc;
 
       // Instantiate objects to be used in tests
       setUp(() {
         mockRandom = MockRandom();
 
-        greetingsController = GreetingsController();
+        greetingsController = GreetingsController(
+          randomNumberGenerator: mockRandom,
+        );
 
         greetingsBloc = GreetingsBloc(greetingsController);
+
+        unMockedBloc = GreetingsBloc(const GreetingsController());
       });
 
       // Close, dispose e.t.c objects once tests have completed
       tearDown(() {
         greetingsBloc.close();
+        unMockedBloc.close();
       });
 
       // a) Test to ensure initial state
       test(
-        'The initial state of GreetingsBloc is GreetingsInitialState',
+        'The initial state of GreetingsBloc is GreetingsInitial',
         () {
-          expect(greetingsBloc.state, const GreetingsInitialState());
+          expect(greetingsBloc.state, const GreetingsInitial());
         },
       );
 
@@ -55,11 +62,13 @@ void main() {
         """,
         build: () => greetingsBloc,
         act: (bloc) {
-          bloc.add(const GetGreetingEvent(name: null));
+          bloc.add(const GreetingsRequested(name: null));
         },
         expect: () => <GreetingsState>[
-          const GreetingsLoadingState(),
-          const GreetingsErrorState(message: "Please enter the user's name"),
+          const GreetingsRequestInProgress(),
+          const GreetingsRequestFailure(
+            message: "Please enter the user's name",
+          ),
         ],
       );
 
@@ -72,11 +81,13 @@ void main() {
         """,
         build: () => greetingsBloc,
         act: (bloc) {
-          bloc.add(const GetGreetingEvent(name: ''));
+          bloc.add(const GreetingsRequested(name: ''));
         },
         expect: () => <GreetingsState>[
-          const GreetingsLoadingState(),
-          const GreetingsErrorState(message: "Please enter the user's name"),
+          const GreetingsRequestInProgress(),
+          const GreetingsRequestFailure(
+            message: "Please enter the user's name",
+          ),
         ],
       );
 
@@ -91,11 +102,11 @@ void main() {
         ''',
         build: () => greetingsBloc,
         act: (bloc) {
-          bloc.add(const GetGreetingEvent(name: '|'));
+          bloc.add(const GreetingsRequested(name: '|'));
         },
         expect: () => <GreetingsState>[
-          const GreetingsLoadingState(),
-          const GreetingsErrorState(message: 'Only letters allowed'),
+          const GreetingsRequestInProgress(),
+          const GreetingsRequestFailure(message: 'Only letters allowed'),
         ],
       );
 
@@ -109,10 +120,10 @@ void main() {
         ''',
         build: () => greetingsBloc,
         act: (bloc) {
-          bloc.add(const GetGreetingEvent(name: 'hi', throwError: true));
+          bloc.add(const GreetingsRequested(name: 'hi', throwError: true));
         },
         expect: () => <GreetingsState>[
-          const GreetingsErrorState(message: 'Error getting response'),
+          const GreetingsRequestFailure(message: 'Error getting response'),
         ],
       );
 
@@ -126,17 +137,17 @@ void main() {
             [UnexpectedException] is emitted after loading state
         """,
         () async {
-          greetingsBloc.add(const GetGreetingEvent(name: 'WidgetBook'));
+          unMockedBloc.add(const GreetingsRequested(name: 'WidgetBook'));
           // skip loading State then return the next state
-          final firstStateEmitted = await greetingsBloc.stream.skip(1).first;
+          final firstStateEmitted = await unMockedBloc.stream.skip(1).first;
           expect(
             firstStateEmitted,
             isIn(
               <GreetingsState>[
-                const GreetingsErrorState(
+                const GreetingsRequestFailure(
                   message: 'Unexpected Error has occurred. Try again later',
                 ),
-                const GreetingsCompletedState(response: 'Hello WidgetBook'),
+                const GreetingsRequestSuccess(response: 'Hello WidgetBook'),
               ],
             ),
           );
@@ -157,14 +168,12 @@ void main() {
           // Stub a `nextInt` method to return an odd number before interacting
           when(mockRandom.nextInt(3)).thenReturn(3);
 
-          bloc.add(
-            GetGreetingEvent(name: 'hi', randomNumberGenerator: mockRandom),
-          );
+          bloc.add(const GreetingsRequested(name: 'hi'));
         },
         wait: const Duration(seconds: 2),
         expect: () => <GreetingsState>[
-          const GreetingsLoadingState(),
-          const GreetingsErrorState(
+          const GreetingsRequestInProgress(),
+          const GreetingsRequestFailure(
             message: 'Unexpected Error has occurred. Try again later',
           ),
         ],
@@ -182,17 +191,29 @@ void main() {
           // Stub a `nextInt` method to return an even number before interacting
           when(mockRandom.nextInt(3)).thenReturn(0);
 
-          bloc.add(
-            GetGreetingEvent(
-              name: 'WidgetBook',
-              randomNumberGenerator: mockRandom,
-            ),
-          );
+          bloc.add(const GreetingsRequested(name: 'WidgetBook'));
         },
         wait: const Duration(seconds: 2),
         expect: () => <GreetingsState>[
-          const GreetingsLoadingState(),
-          const GreetingsCompletedState(response: 'Hello WidgetBook'),
+          const GreetingsRequestInProgress(),
+          const GreetingsRequestSuccess(response: 'Hello WidgetBook'),
+        ],
+      );
+
+      blocTest<GreetingsBloc, GreetingsState>(
+        '''
+        When greeting screen is sent to Bloc
+        Then loading state then initial state is emitted to return screen to 
+          original state
+        ''',
+        build: () => greetingsBloc,
+        act: (bloc) {
+          bloc.add(const GreetingsScreenReset());
+        },
+        wait: const Duration(seconds: 2),
+        expect: () => <GreetingsState>[
+          const GreetingsRequestInProgress(),
+          const GreetingsRequestReset(),
         ],
       );
     },

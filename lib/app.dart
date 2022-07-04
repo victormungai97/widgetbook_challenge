@@ -14,6 +14,9 @@ class App extends StatelessWidget {
   })  : _greetingsController = greetingsController,
         super(key: key);
 
+  ///
+  static const bodyWidgetKey = Key('bodyWidget');
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
@@ -25,7 +28,7 @@ class App extends StatelessWidget {
             appBar: AppBar(
               title: const Text('Interview Challenge'),
             ),
-            body: const Center(child: _Body()),
+            body: const Center(child: _Body(key: bodyWidgetKey)),
           ),
           debugShowCheckedModeBanner: false,
         ),
@@ -40,85 +43,125 @@ class App extends StatelessWidget {
 class _Body extends HookWidget {
   const _Body({Key? key}) : super(key: key);
 
+  static const submitNameButtonKey = Key('submitName');
+  static const inputNameTextFieldKey = Key('inputName');
+  static const resetPageButtonKey = Key('resetPage');
+
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<GreetingsBloc>().state;
+    // final state = context.watch<GreetingsBloc>().state;
     final name = useState<String>('');
+    final textController = useTextEditingController();
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: FlutterLogo(size: 120),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Center(
-              child: Text(
-                'Hello Flutter enthusiast!',
-                style: Theme.of(context).textTheme.headline5,
+    return BlocConsumer<GreetingsBloc, GreetingsState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          reset: () {
+            name.value = '';
+            textController.text = '';
+          },
+        );
+      },
+      builder: (context, state) {
+        return SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                child: FlutterLogo(size: 120),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Center(
-              child: TextField(
-                keyboardType: TextInputType.name,
-                decoration: const InputDecoration(
-                  hintText: 'John',
-                  labelText: 'Enter a name',
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Center(
+                  child: Text(
+                    'Hello Flutter enthusiast!',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
                 ),
-                onChanged: (str) => name.value = str,
               ),
-            ),
-          ),
-          // listen for changes in state and update UI accordingly
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: state.when(
-              initial: () => _SubmitButton(name: name.value),
-              loading: () => const Center(child: CircularProgressIndicator()),
-              completed: (response) => Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: _SubmitButton(name: name.value),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Center(
+                  child: TextField(
+                    keyboardType: TextInputType.name,
+                    decoration: const InputDecoration(
+                      hintText: 'John',
+                      labelText: 'Enter a name',
+                    ),
+                    controller: textController,
+                    onChanged: (str) => name.value = str,
+                    key: inputNameTextFieldKey,
                   ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        response ?? 'Hello',
-                        style:
-                            const TextStyle(color: Colors.green, fontSize: 18),
-                      ),
+                ),
+              ),
+              // listen for changes in state and update UI accordingly
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: state.whenOrNull(
+                  success: (response) => Center(
+                    child: Text(
+                      response ?? 'Hello',
+                      style: const TextStyle(color: Colors.green, fontSize: 18),
                     ),
                   ),
-                ],
-              ),
-              exception: (message) => Row(
-                children: [
-                  Expanded(
-                    child: _SubmitButton(name: name.value),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        message,
-                        style: const TextStyle(color: Colors.red),
-                      ),
+                  failure: (message) => Center(
+                    child: Text(
+                      message,
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: state.when(
+                  initial: () => _SubmitButton(
+                    name: name.value,
+                    key: submitNameButtonKey,
+                  ),
+                  load: () => const Center(child: CircularProgressIndicator()),
+                  success: (response) => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: _SubmitButton(
+                          name: name.value,
+                          key: submitNameButtonKey,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      const Expanded(
+                        child: _ResetButton(key: resetPageButtonKey),
+                      ),
+                    ],
+                  ),
+                  failure: (message) => Row(
+                    children: [
+                      Expanded(
+                        child: _SubmitButton(
+                          name: name.value,
+                          key: submitNameButtonKey,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      const Expanded(
+                        child: _ResetButton(key: resetPageButtonKey),
+                      ),
+                    ],
+                  ),
+                  reset: () => _SubmitButton(
+                    name: name.value,
+                    key: submitNameButtonKey,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -134,9 +177,26 @@ class _SubmitButton extends StatelessWidget {
     return ElevatedButton.icon(
       icon: const Icon(Icons.send),
       onPressed: () {
-        context.read<GreetingsBloc>().add(GreetingsEvent.request(name: name));
+        context.read<GreetingsBloc>().add(GreetingsEvent.requested(name: name));
       },
       label: const Text('Submit'),
+    );
+  }
+}
+
+/// Reset button
+class _ResetButton extends StatelessWidget {
+  const _ResetButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(primary: Colors.black),
+      icon: const Icon(Icons.undo),
+      onPressed: () {
+        context.read<GreetingsBloc>().add(const GreetingsEvent.reset());
+      },
+      label: const Text('Reset'),
     );
   }
 }

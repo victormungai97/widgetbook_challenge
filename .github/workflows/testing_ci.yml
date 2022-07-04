@@ -44,13 +44,28 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
+
+      # Install Dart Full Coverage from previously created Github Action to ensure coverage of 100%
+      - uses: stelynx/dart-full-coverage@v1.0.5
+        with:
+          # The name of your package, the same as you use in imports
+          package: "widgetbook_challenge"
+          # A comma-separated list of files to be ignored and not imported in `test_file`
+          ignore: "*_event.dart, *_state.dart, *.g.dart, *.freezed.dart, *.config.dart, *.mocks.dart"
+
       - run: flutter --version
 
       - name: Get all Flutter Packages # Label for one's step to display on GitHub.
         run: flutter pub get # This will execute the command provided to it
 
       - name: Check for lint issues in our Project
+        continue-on-error: true
         run: flutter analyze
 
-      - name: Test Flutter App
-        run: flutter test
+      - name: Test Flutter App with coverage
+        run: flutter test --coverage .
+
+      - name: Upload code coverage to codecov
+        uses: codecov/codecov-action@v1.0.2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

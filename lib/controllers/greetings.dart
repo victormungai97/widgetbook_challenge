@@ -1,15 +1,22 @@
-part of 'controller.dart';
+import 'dart:math' as math;
+
+import 'package:flutter/foundation.dart';
+import 'package:widgetbook_challenge/api/widgetbook_api.dart';
+import 'package:widgetbook_challenge/controllers/base.dart';
 
 /// This class shall handle logic with respect to greetings, e.g. API calls
 
 class GreetingsController extends Controller {
+  /// Constructor
+  const GreetingsController({math.Random? randomNumberGenerator})
+      : _randomNumberGenerator = randomNumberGenerator;
+
   static final _nameRegExp = RegExp(r'[!@#<>?":_`~;[\]\\|=+/)(*&^%0-9-]');
 
   /// Receive user's name, make API call and get, process & return response
-  Future<String> getGreeting({
+  Future<String> requestGreeting({
     required String? name,
     bool throwError = false,
-    math.Random? randomNumberGenerator,
   }) async {
     try {
       if (throwError) throw Exception('This is an exception in controller');
@@ -18,7 +25,7 @@ class GreetingsController extends Controller {
       if (_nameRegExp.hasMatch(name!)) return 'Only letters allowed';
       // 2. Make API call
       final result = await WidgetbookApi(
-        randomNumberGenerator: randomNumberGenerator,
+        randomNumberGenerator: _randomNumberGenerator,
       ).welcomeToWidgetbook(message: name);
       // 3. Process response
       if (isStringEmpty(result)) return 'No response received';
@@ -32,4 +39,6 @@ class GreetingsController extends Controller {
       return 'Something went wrong. Contact support';
     }
   }
+
+  final math.Random? _randomNumberGenerator;
 }

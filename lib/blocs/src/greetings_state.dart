@@ -7,16 +7,19 @@ part of 'greetings_bloc.dart';
 @freezed
 class GreetingsState with _$GreetingsState {
   /// Factory constructor for initial state
-  const factory GreetingsState.initial() = GreetingsInitialState;
+  const factory GreetingsState.initial() = GreetingsInitial;
 
   /// Factory constructor for loading state
-  const factory GreetingsState.loading() = GreetingsLoadingState;
+  const factory GreetingsState.load() = GreetingsRequestInProgress;
 
-  /// Factory constructor for loaded state with an expected response
-  const factory GreetingsState.completed({String? response}) =
-      GreetingsCompletedState;
+  /// Factory constructor for completed state with an expected response
+  const factory GreetingsState.success({String? response}) =
+      GreetingsRequestSuccess;
 
   /// Factory constructor for error state with error message
-  const factory GreetingsState.exception({required String message}) =
-      GreetingsErrorState;
+  const factory GreetingsState.failure({required String message}) =
+      GreetingsRequestFailure;
+
+  /// Factory constructor for resetting state
+  const factory GreetingsState.reset() = GreetingsRequestReset;
 }

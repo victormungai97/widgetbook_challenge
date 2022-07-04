@@ -1,12 +1,12 @@
-import 'dart:math' as math;
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:widgetbook_challenge/controllers/controller.dart';
 
 part 'greetings_bloc.freezed.dart';
+
 part 'greetings_event.dart';
+
 part 'greetings_state.dart';
 
 /// BLoC class that receives actions from user via events and emits
@@ -17,27 +17,34 @@ class GreetingsBloc extends Bloc<GreetingsEvent, GreetingsState> {
       : super(const GreetingsState.initial()) {
     on<GreetingsEvent>((event, emit) async {
       await event.when(
-        request: (name, throwError, randomNumberGenerator) async {
+        requested: (name, throwError) async {
           try {
             if (throwError) throw Exception('This is an exception in BLoC');
             // Make screen load
-            emit(const GreetingsState.loading());
+            emit(const GreetingsState.load());
             // make API Call and get response
-            final result = await _greetingsController.getGreeting(
+            final result = await _greetingsController.requestGreeting(
               name: name,
-              randomNumberGenerator: randomNumberGenerator,
             );
             if (result.toLowerCase().startsWith('hello')) {
-              emit(GreetingsState.completed(response: result));
+              emit(GreetingsState.success(response: result));
             } else {
-              emit(GreetingsState.exception(message: result));
+              emit(GreetingsState.failure(message: result));
             }
           } on Exception catch (ex, trace) {
             debugPrint('ERROR GETTING greeting:\t$ex\n--\nSTACKTRACE: $trace');
             emit(
-              const GreetingsState.exception(message: 'Error getting response'),
+              const GreetingsState.failure(message: 'Error getting response'),
             );
           }
+        },
+        reset: () async {
+          // Make screen load
+          emit(const GreetingsState.load());
+          // Add a small delay
+          await Future.delayed(const Duration(milliseconds: 500), () {});
+          // Reset screen
+          emit(const GreetingsState.reset());
         },
       );
     });
