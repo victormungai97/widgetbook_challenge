@@ -1,4 +1,8 @@
-part of 'controller.dart';
+import 'dart:math' as math;
+
+import 'package:flutter/foundation.dart';
+import 'package:widgetbook_challenge/api/widgetbook_api.dart';
+import 'package:widgetbook_challenge/controllers/base.dart';
 
 /// This class shall handle logic with respect to greetings, e.g. API calls
 
