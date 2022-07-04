@@ -38,7 +38,7 @@ then
                 echo "The email address has not been provided, retrying in 5 secs..."
                 sleep 5
             else
-            		echo "Git username $address received"
+            		echo "Git email address $address received"
             		git config user.email "$address"
             		break
             fi
