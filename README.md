@@ -1,6 +1,6 @@
-# Widgetbook Challenge
-
 [![codecov](https://codecov.io/gh/victormungai97/widgetbook_challenge/branch/main/graph/badge.svg?token=ODDKRU1SV7)](https://codecov.io/gh/victormungai97/widgetbook_challenge)
+
+# Widgetbook Challenge
 
 This flutter app represents a coding challenge for Flutter enthusiasts applying for a job at [Widgetbook](https://widgetbook.io). 
 
