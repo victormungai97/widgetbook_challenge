@@ -45,6 +45,10 @@ class GreetingsBloc extends Bloc<GreetingsEvent, GreetingsState> {
           await Future.delayed(const Duration(milliseconds: 500), () {});
           // Reset screen
           emit(const GreetingsState.reset());
+          // Add a small delay
+          await Future.delayed(const Duration(milliseconds: 100), () {});
+          // Go to original state
+          emit(const GreetingsState.initial());
         },
       );
     });

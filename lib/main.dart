@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:widgetbook_challenge/app.dart';
-import 'package:widgetbook_challenge/blocs/bloc_observer.dart';
+import 'package:widgetbook_challenge/bloc_observer.dart';
 import 'package:widgetbook_challenge/controllers/controller.dart';
 
 void main() async {

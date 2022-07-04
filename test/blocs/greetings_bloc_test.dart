@@ -214,6 +214,7 @@ void main() {
         expect: () => <GreetingsState>[
           const GreetingsRequestInProgress(),
           const GreetingsRequestReset(),
+          const GreetingsInitial(),
         ],
       );
     },

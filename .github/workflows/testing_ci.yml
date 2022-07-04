@@ -51,7 +51,7 @@ jobs:
           # The name of your package, the same as you use in imports
           package: "widgetbook_challenge"
           # A comma-separated list of files to be ignored and not imported in `test_file`
-          ignore: "*_event.dart, *_state.dart, *.g.dart, *.freezed.dart, *.config.dart, *.mocks.dart, blocs/bloc_observer.dart"
+          ignore: "*_event.dart, *_state.dart, *.g.dart, *.freezed.dart, *.config.dart, *.mocks.dart, bloc_observer.dart"
 
       - run: flutter --version
 
