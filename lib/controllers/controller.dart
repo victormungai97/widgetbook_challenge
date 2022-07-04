@@ -11,7 +11,7 @@ import 'package:widgetbook_challenge/api/widgetbook_api.dart';
 part 'greetings.dart';
 
 /// Base class for our controllers
-abstract class Controller extends Equatable {
+class Controller extends Equatable {
   /// Controller for base class
   const Controller();
 

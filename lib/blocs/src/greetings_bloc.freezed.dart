@@ -16,50 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GreetingsEvent {
-  String? get name => throw _privateConstructorUsedError;
-  bool get throwError => throw _privateConstructorUsedError;
-  math.Random? get randomNumberGenerator => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? name, bool throwError, math.Random? randomNumberGenerator)
-        request,
+    required TResult Function(String? name, bool throwError) requested,
+    required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            String? name, bool throwError, math.Random? randomNumberGenerator)?
-        request,
+    TResult Function(String? name, bool throwError)? requested,
+    TResult Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? name, bool throwError, math.Random? randomNumberGenerator)?
-        request,
+    TResult Function(String? name, bool throwError)? requested,
+    TResult Function()? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GetGreetingEvent value) request,
+    required TResult Function(GreetingsRequested value) requested,
+    required TResult Function(GreetingsScreenReset value) reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetGreetingEvent value)? request,
+    TResult Function(GreetingsRequested value)? requested,
+    TResult Function(GreetingsScreenReset value)? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GetGreetingEvent value)? request,
+    TResult Function(GreetingsRequested value)? requested,
+    TResult Function(GreetingsScreenReset value)? reset,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $GreetingsEventCopyWith<GreetingsEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -68,8 +61,6 @@ abstract class $GreetingsEventCopyWith<$Res> {
   factory $GreetingsEventCopyWith(
           GreetingsEvent value, $Res Function(GreetingsEvent) then) =
       _$GreetingsEventCopyWithImpl<$Res>;
-  $Res call(
-      {String? name, bool throwError, math.Random? randomNumberGenerator});
 }
 
 /// @nodoc
@@ -80,59 +71,33 @@ class _$GreetingsEventCopyWithImpl<$Res>
   final GreetingsEvent _value;
   // ignore: unused_field
   final $Res Function(GreetingsEvent) _then;
-
-  @override
-  $Res call({
-    Object? name = freezed,
-    Object? throwError = freezed,
-    Object? randomNumberGenerator = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      throwError: throwError == freezed
-          ? _value.throwError
-          : throwError // ignore: cast_nullable_to_non_nullable
-              as bool,
-      randomNumberGenerator: randomNumberGenerator == freezed
-          ? _value.randomNumberGenerator
-          : randomNumberGenerator // ignore: cast_nullable_to_non_nullable
-              as math.Random?,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$$GetGreetingEventCopyWith<$Res>
-    implements $GreetingsEventCopyWith<$Res> {
-  factory _$$GetGreetingEventCopyWith(
-          _$GetGreetingEvent value, $Res Function(_$GetGreetingEvent) then) =
-      __$$GetGreetingEventCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {String? name, bool throwError, math.Random? randomNumberGenerator});
+abstract class _$$GreetingsRequestedCopyWith<$Res> {
+  factory _$$GreetingsRequestedCopyWith(_$GreetingsRequested value,
+          $Res Function(_$GreetingsRequested) then) =
+      __$$GreetingsRequestedCopyWithImpl<$Res>;
+  $Res call({String? name, bool throwError});
 }
 
 /// @nodoc
-class __$$GetGreetingEventCopyWithImpl<$Res>
+class __$$GreetingsRequestedCopyWithImpl<$Res>
     extends _$GreetingsEventCopyWithImpl<$Res>
-    implements _$$GetGreetingEventCopyWith<$Res> {
-  __$$GetGreetingEventCopyWithImpl(
-      _$GetGreetingEvent _value, $Res Function(_$GetGreetingEvent) _then)
-      : super(_value, (v) => _then(v as _$GetGreetingEvent));
+    implements _$$GreetingsRequestedCopyWith<$Res> {
+  __$$GreetingsRequestedCopyWithImpl(
+      _$GreetingsRequested _value, $Res Function(_$GreetingsRequested) _then)
+      : super(_value, (v) => _then(v as _$GreetingsRequested));
 
   @override
-  _$GetGreetingEvent get _value => super._value as _$GetGreetingEvent;
+  _$GreetingsRequested get _value => super._value as _$GreetingsRequested;
 
   @override
   $Res call({
     Object? name = freezed,
     Object? throwError = freezed,
-    Object? randomNumberGenerator = freezed,
   }) {
-    return _then(_$GetGreetingEvent(
+    return _then(_$GreetingsRequested(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -141,102 +106,86 @@ class __$$GetGreetingEventCopyWithImpl<$Res>
           ? _value.throwError
           : throwError // ignore: cast_nullable_to_non_nullable
               as bool,
-      randomNumberGenerator: randomNumberGenerator == freezed
-          ? _value.randomNumberGenerator
-          : randomNumberGenerator // ignore: cast_nullable_to_non_nullable
-              as math.Random?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$GetGreetingEvent
+class _$GreetingsRequested
     with DiagnosticableTreeMixin
-    implements GetGreetingEvent {
-  const _$GetGreetingEvent(
-      {required this.name,
-      this.throwError = false,
-      this.randomNumberGenerator});
+    implements GreetingsRequested {
+  const _$GreetingsRequested({required this.name, this.throwError = false});
 
   @override
   final String? name;
   @override
   @JsonKey()
   final bool throwError;
-  @override
-  final math.Random? randomNumberGenerator;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GreetingsEvent.request(name: $name, throwError: $throwError, randomNumberGenerator: $randomNumberGenerator)';
+    return 'GreetingsEvent.requested(name: $name, throwError: $throwError)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'GreetingsEvent.request'))
+      ..add(DiagnosticsProperty('type', 'GreetingsEvent.requested'))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('throwError', throwError))
-      ..add(
-          DiagnosticsProperty('randomNumberGenerator', randomNumberGenerator));
+      ..add(DiagnosticsProperty('throwError', throwError));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GetGreetingEvent &&
+            other is _$GreetingsRequested &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
-                .equals(other.throwError, throwError) &&
-            const DeepCollectionEquality()
-                .equals(other.randomNumberGenerator, randomNumberGenerator));
+                .equals(other.throwError, throwError));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(throwError),
-      const DeepCollectionEquality().hash(randomNumberGenerator));
+      const DeepCollectionEquality().hash(throwError));
 
   @JsonKey(ignore: true)
   @override
-  _$$GetGreetingEventCopyWith<_$GetGreetingEvent> get copyWith =>
-      __$$GetGreetingEventCopyWithImpl<_$GetGreetingEvent>(this, _$identity);
+  _$$GreetingsRequestedCopyWith<_$GreetingsRequested> get copyWith =>
+      __$$GreetingsRequestedCopyWithImpl<_$GreetingsRequested>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? name, bool throwError, math.Random? randomNumberGenerator)
-        request,
+    required TResult Function(String? name, bool throwError) requested,
+    required TResult Function() reset,
   }) {
-    return request(name, throwError, randomNumberGenerator);
+    return requested(name, throwError);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            String? name, bool throwError, math.Random? randomNumberGenerator)?
-        request,
+    TResult Function(String? name, bool throwError)? requested,
+    TResult Function()? reset,
   }) {
-    return request?.call(name, throwError, randomNumberGenerator);
+    return requested?.call(name, throwError);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String? name, bool throwError, math.Random? randomNumberGenerator)?
-        request,
+    TResult Function(String? name, bool throwError)? requested,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
-    if (request != null) {
-      return request(name, throwError, randomNumberGenerator);
+    if (requested != null) {
+      return requested(name, throwError);
     }
     return orElse();
   }
@@ -244,48 +193,158 @@ class _$GetGreetingEvent
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GetGreetingEvent value) request,
+    required TResult Function(GreetingsRequested value) requested,
+    required TResult Function(GreetingsScreenReset value) reset,
   }) {
-    return request(this);
+    return requested(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetGreetingEvent value)? request,
+    TResult Function(GreetingsRequested value)? requested,
+    TResult Function(GreetingsScreenReset value)? reset,
   }) {
-    return request?.call(this);
+    return requested?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GetGreetingEvent value)? request,
+    TResult Function(GreetingsRequested value)? requested,
+    TResult Function(GreetingsScreenReset value)? reset,
     required TResult orElse(),
   }) {
-    if (request != null) {
-      return request(this);
+    if (requested != null) {
+      return requested(this);
     }
     return orElse();
   }
 }
 
-abstract class GetGreetingEvent implements GreetingsEvent {
-  const factory GetGreetingEvent(
+abstract class GreetingsRequested implements GreetingsEvent {
+  const factory GreetingsRequested(
       {required final String? name,
-      final bool throwError,
-      final math.Random? randomNumberGenerator}) = _$GetGreetingEvent;
+      final bool throwError}) = _$GreetingsRequested;
+
+  String? get name => throw _privateConstructorUsedError;
+  bool get throwError => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$GreetingsRequestedCopyWith<_$GreetingsRequested> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GreetingsScreenResetCopyWith<$Res> {
+  factory _$$GreetingsScreenResetCopyWith(_$GreetingsScreenReset value,
+          $Res Function(_$GreetingsScreenReset) then) =
+      __$$GreetingsScreenResetCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GreetingsScreenResetCopyWithImpl<$Res>
+    extends _$GreetingsEventCopyWithImpl<$Res>
+    implements _$$GreetingsScreenResetCopyWith<$Res> {
+  __$$GreetingsScreenResetCopyWithImpl(_$GreetingsScreenReset _value,
+      $Res Function(_$GreetingsScreenReset) _then)
+      : super(_value, (v) => _then(v as _$GreetingsScreenReset));
 
   @override
-  String? get name => throw _privateConstructorUsedError;
+  _$GreetingsScreenReset get _value => super._value as _$GreetingsScreenReset;
+}
+
+/// @nodoc
+
+class _$GreetingsScreenReset
+    with DiagnosticableTreeMixin
+    implements GreetingsScreenReset {
+  const _$GreetingsScreenReset();
+
   @override
-  bool get throwError => throw _privateConstructorUsedError;
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'GreetingsEvent.reset()';
+  }
+
   @override
-  math.Random? get randomNumberGenerator => throw _privateConstructorUsedError;
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'GreetingsEvent.reset'));
+  }
+
   @override
-  @JsonKey(ignore: true)
-  _$$GetGreetingEventCopyWith<_$GetGreetingEvent> get copyWith =>
-      throw _privateConstructorUsedError;
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GreetingsScreenReset);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? name, bool throwError) requested,
+    required TResult Function() reset,
+  }) {
+    return reset();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String? name, bool throwError)? requested,
+    TResult Function()? reset,
+  }) {
+    return reset?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? name, bool throwError)? requested,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GreetingsRequested value) requested,
+    required TResult Function(GreetingsScreenReset value) reset,
+  }) {
+    return reset(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(GreetingsRequested value)? requested,
+    TResult Function(GreetingsScreenReset value)? reset,
+  }) {
+    return reset?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GreetingsRequested value)? requested,
+    TResult Function(GreetingsScreenReset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GreetingsScreenReset implements GreetingsEvent {
+  const factory GreetingsScreenReset() = _$GreetingsScreenReset;
 }
 
 /// @nodoc
@@ -293,50 +352,56 @@ mixin _$GreetingsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(String? response) completed,
-    required TResult Function(String message) exception,
+    required TResult Function() load,
+    required TResult Function(String? response) success,
+    required TResult Function(String message) failure,
+    required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? response)? completed,
-    TResult Function(String message)? exception,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? response)? completed,
-    TResult Function(String message)? exception,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GreetingsInitialState value) initial,
-    required TResult Function(GreetingsLoadingState value) loading,
-    required TResult Function(GreetingsCompletedState value) completed,
-    required TResult Function(GreetingsErrorState value) exception,
+    required TResult Function(GreetingsInitial value) initial,
+    required TResult Function(GreetingsRequestInProgress value) load,
+    required TResult Function(GreetingsRequestSuccess value) success,
+    required TResult Function(GreetingsRequestFailure value) failure,
+    required TResult Function(GreetingsRequestReset value) reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GreetingsInitialState value)? initial,
-    TResult Function(GreetingsLoadingState value)? loading,
-    TResult Function(GreetingsCompletedState value)? completed,
-    TResult Function(GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GreetingsInitialState value)? initial,
-    TResult Function(GreetingsLoadingState value)? loading,
-    TResult Function(GreetingsCompletedState value)? completed,
-    TResult Function(GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -360,30 +425,30 @@ class _$GreetingsStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$GreetingsInitialStateCopyWith<$Res> {
-  factory _$$GreetingsInitialStateCopyWith(_$GreetingsInitialState value,
-          $Res Function(_$GreetingsInitialState) then) =
-      __$$GreetingsInitialStateCopyWithImpl<$Res>;
+abstract class _$$GreetingsInitialCopyWith<$Res> {
+  factory _$$GreetingsInitialCopyWith(
+          _$GreetingsInitial value, $Res Function(_$GreetingsInitial) then) =
+      __$$GreetingsInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$GreetingsInitialStateCopyWithImpl<$Res>
+class __$$GreetingsInitialCopyWithImpl<$Res>
     extends _$GreetingsStateCopyWithImpl<$Res>
-    implements _$$GreetingsInitialStateCopyWith<$Res> {
-  __$$GreetingsInitialStateCopyWithImpl(_$GreetingsInitialState _value,
-      $Res Function(_$GreetingsInitialState) _then)
-      : super(_value, (v) => _then(v as _$GreetingsInitialState));
+    implements _$$GreetingsInitialCopyWith<$Res> {
+  __$$GreetingsInitialCopyWithImpl(
+      _$GreetingsInitial _value, $Res Function(_$GreetingsInitial) _then)
+      : super(_value, (v) => _then(v as _$GreetingsInitial));
 
   @override
-  _$GreetingsInitialState get _value => super._value as _$GreetingsInitialState;
+  _$GreetingsInitial get _value => super._value as _$GreetingsInitial;
 }
 
 /// @nodoc
 
-class _$GreetingsInitialState
+class _$GreetingsInitial
     with DiagnosticableTreeMixin
-    implements GreetingsInitialState {
-  const _$GreetingsInitialState();
+    implements GreetingsInitial {
+  const _$GreetingsInitial();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -399,7 +464,7 @@ class _$GreetingsInitialState
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GreetingsInitialState);
+        (other.runtimeType == runtimeType && other is _$GreetingsInitial);
   }
 
   @override
@@ -409,9 +474,10 @@ class _$GreetingsInitialState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(String? response) completed,
-    required TResult Function(String message) exception,
+    required TResult Function() load,
+    required TResult Function(String? response) success,
+    required TResult Function(String message) failure,
+    required TResult Function() reset,
   }) {
     return initial();
   }
@@ -420,9 +486,10 @@ class _$GreetingsInitialState
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? response)? completed,
-    TResult Function(String message)? exception,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
   }) {
     return initial?.call();
   }
@@ -431,9 +498,10 @@ class _$GreetingsInitialState
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? response)? completed,
-    TResult Function(String message)? exception,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -445,10 +513,11 @@ class _$GreetingsInitialState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GreetingsInitialState value) initial,
-    required TResult Function(GreetingsLoadingState value) loading,
-    required TResult Function(GreetingsCompletedState value) completed,
-    required TResult Function(GreetingsErrorState value) exception,
+    required TResult Function(GreetingsInitial value) initial,
+    required TResult Function(GreetingsRequestInProgress value) load,
+    required TResult Function(GreetingsRequestSuccess value) success,
+    required TResult Function(GreetingsRequestFailure value) failure,
+    required TResult Function(GreetingsRequestReset value) reset,
   }) {
     return initial(this);
   }
@@ -456,10 +525,11 @@ class _$GreetingsInitialState
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GreetingsInitialState value)? initial,
-    TResult Function(GreetingsLoadingState value)? loading,
-    TResult Function(GreetingsCompletedState value)? completed,
-    TResult Function(GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
   }) {
     return initial?.call(this);
   }
@@ -467,10 +537,11 @@ class _$GreetingsInitialState
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GreetingsInitialState value)? initial,
-    TResult Function(GreetingsLoadingState value)? loading,
-    TResult Function(GreetingsCompletedState value)? completed,
-    TResult Function(GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -480,51 +551,55 @@ class _$GreetingsInitialState
   }
 }
 
-abstract class GreetingsInitialState implements GreetingsState {
-  const factory GreetingsInitialState() = _$GreetingsInitialState;
+abstract class GreetingsInitial implements GreetingsState {
+  const factory GreetingsInitial() = _$GreetingsInitial;
 }
 
 /// @nodoc
-abstract class _$$GreetingsLoadingStateCopyWith<$Res> {
-  factory _$$GreetingsLoadingStateCopyWith(_$GreetingsLoadingState value,
-          $Res Function(_$GreetingsLoadingState) then) =
-      __$$GreetingsLoadingStateCopyWithImpl<$Res>;
+abstract class _$$GreetingsRequestInProgressCopyWith<$Res> {
+  factory _$$GreetingsRequestInProgressCopyWith(
+          _$GreetingsRequestInProgress value,
+          $Res Function(_$GreetingsRequestInProgress) then) =
+      __$$GreetingsRequestInProgressCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$GreetingsLoadingStateCopyWithImpl<$Res>
+class __$$GreetingsRequestInProgressCopyWithImpl<$Res>
     extends _$GreetingsStateCopyWithImpl<$Res>
-    implements _$$GreetingsLoadingStateCopyWith<$Res> {
-  __$$GreetingsLoadingStateCopyWithImpl(_$GreetingsLoadingState _value,
-      $Res Function(_$GreetingsLoadingState) _then)
-      : super(_value, (v) => _then(v as _$GreetingsLoadingState));
+    implements _$$GreetingsRequestInProgressCopyWith<$Res> {
+  __$$GreetingsRequestInProgressCopyWithImpl(
+      _$GreetingsRequestInProgress _value,
+      $Res Function(_$GreetingsRequestInProgress) _then)
+      : super(_value, (v) => _then(v as _$GreetingsRequestInProgress));
 
   @override
-  _$GreetingsLoadingState get _value => super._value as _$GreetingsLoadingState;
+  _$GreetingsRequestInProgress get _value =>
+      super._value as _$GreetingsRequestInProgress;
 }
 
 /// @nodoc
 
-class _$GreetingsLoadingState
+class _$GreetingsRequestInProgress
     with DiagnosticableTreeMixin
-    implements GreetingsLoadingState {
-  const _$GreetingsLoadingState();
+    implements GreetingsRequestInProgress {
+  const _$GreetingsRequestInProgress();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GreetingsState.loading()';
+    return 'GreetingsState.load()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'GreetingsState.loading'));
+    properties.add(DiagnosticsProperty('type', 'GreetingsState.load'));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GreetingsLoadingState);
+        (other.runtimeType == runtimeType &&
+            other is _$GreetingsRequestInProgress);
   }
 
   @override
@@ -534,35 +609,38 @@ class _$GreetingsLoadingState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(String? response) completed,
-    required TResult Function(String message) exception,
+    required TResult Function() load,
+    required TResult Function(String? response) success,
+    required TResult Function(String message) failure,
+    required TResult Function() reset,
   }) {
-    return loading();
+    return load();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? response)? completed,
-    TResult Function(String message)? exception,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
   }) {
-    return loading?.call();
+    return load?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? response)? completed,
-    TResult Function(String message)? exception,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading();
+    if (load != null) {
+      return load();
     }
     return orElse();
   }
@@ -570,70 +648,73 @@ class _$GreetingsLoadingState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GreetingsInitialState value) initial,
-    required TResult Function(GreetingsLoadingState value) loading,
-    required TResult Function(GreetingsCompletedState value) completed,
-    required TResult Function(GreetingsErrorState value) exception,
+    required TResult Function(GreetingsInitial value) initial,
+    required TResult Function(GreetingsRequestInProgress value) load,
+    required TResult Function(GreetingsRequestSuccess value) success,
+    required TResult Function(GreetingsRequestFailure value) failure,
+    required TResult Function(GreetingsRequestReset value) reset,
   }) {
-    return loading(this);
+    return load(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GreetingsInitialState value)? initial,
-    TResult Function(GreetingsLoadingState value)? loading,
-    TResult Function(GreetingsCompletedState value)? completed,
-    TResult Function(GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
   }) {
-    return loading?.call(this);
+    return load?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GreetingsInitialState value)? initial,
-    TResult Function(GreetingsLoadingState value)? loading,
-    TResult Function(GreetingsCompletedState value)? completed,
-    TResult Function(GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(this);
+    if (load != null) {
+      return load(this);
     }
     return orElse();
   }
 }
 
-abstract class GreetingsLoadingState implements GreetingsState {
-  const factory GreetingsLoadingState() = _$GreetingsLoadingState;
+abstract class GreetingsRequestInProgress implements GreetingsState {
+  const factory GreetingsRequestInProgress() = _$GreetingsRequestInProgress;
 }
 
 /// @nodoc
-abstract class _$$GreetingsCompletedStateCopyWith<$Res> {
-  factory _$$GreetingsCompletedStateCopyWith(_$GreetingsCompletedState value,
-          $Res Function(_$GreetingsCompletedState) then) =
-      __$$GreetingsCompletedStateCopyWithImpl<$Res>;
+abstract class _$$GreetingsRequestSuccessCopyWith<$Res> {
+  factory _$$GreetingsRequestSuccessCopyWith(_$GreetingsRequestSuccess value,
+          $Res Function(_$GreetingsRequestSuccess) then) =
+      __$$GreetingsRequestSuccessCopyWithImpl<$Res>;
   $Res call({String? response});
 }
 
 /// @nodoc
-class __$$GreetingsCompletedStateCopyWithImpl<$Res>
+class __$$GreetingsRequestSuccessCopyWithImpl<$Res>
     extends _$GreetingsStateCopyWithImpl<$Res>
-    implements _$$GreetingsCompletedStateCopyWith<$Res> {
-  __$$GreetingsCompletedStateCopyWithImpl(_$GreetingsCompletedState _value,
-      $Res Function(_$GreetingsCompletedState) _then)
-      : super(_value, (v) => _then(v as _$GreetingsCompletedState));
+    implements _$$GreetingsRequestSuccessCopyWith<$Res> {
+  __$$GreetingsRequestSuccessCopyWithImpl(_$GreetingsRequestSuccess _value,
+      $Res Function(_$GreetingsRequestSuccess) _then)
+      : super(_value, (v) => _then(v as _$GreetingsRequestSuccess));
 
   @override
-  _$GreetingsCompletedState get _value =>
-      super._value as _$GreetingsCompletedState;
+  _$GreetingsRequestSuccess get _value =>
+      super._value as _$GreetingsRequestSuccess;
 
   @override
   $Res call({
     Object? response = freezed,
   }) {
-    return _then(_$GreetingsCompletedState(
+    return _then(_$GreetingsRequestSuccess(
       response: response == freezed
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
@@ -644,24 +725,24 @@ class __$$GreetingsCompletedStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$GreetingsCompletedState
+class _$GreetingsRequestSuccess
     with DiagnosticableTreeMixin
-    implements GreetingsCompletedState {
-  const _$GreetingsCompletedState({this.response});
+    implements GreetingsRequestSuccess {
+  const _$GreetingsRequestSuccess({this.response});
 
   @override
   final String? response;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GreetingsState.completed(response: $response)';
+    return 'GreetingsState.success(response: $response)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'GreetingsState.completed'))
+      ..add(DiagnosticsProperty('type', 'GreetingsState.success'))
       ..add(DiagnosticsProperty('response', response));
   }
 
@@ -669,7 +750,7 @@ class _$GreetingsCompletedState
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GreetingsCompletedState &&
+            other is _$GreetingsRequestSuccess &&
             const DeepCollectionEquality().equals(other.response, response));
   }
 
@@ -679,43 +760,46 @@ class _$GreetingsCompletedState
 
   @JsonKey(ignore: true)
   @override
-  _$$GreetingsCompletedStateCopyWith<_$GreetingsCompletedState> get copyWith =>
-      __$$GreetingsCompletedStateCopyWithImpl<_$GreetingsCompletedState>(
+  _$$GreetingsRequestSuccessCopyWith<_$GreetingsRequestSuccess> get copyWith =>
+      __$$GreetingsRequestSuccessCopyWithImpl<_$GreetingsRequestSuccess>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(String? response) completed,
-    required TResult Function(String message) exception,
+    required TResult Function() load,
+    required TResult Function(String? response) success,
+    required TResult Function(String message) failure,
+    required TResult Function() reset,
   }) {
-    return completed(response);
+    return success(response);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? response)? completed,
-    TResult Function(String message)? exception,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
   }) {
-    return completed?.call(response);
+    return success?.call(response);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? response)? completed,
-    TResult Function(String message)? exception,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
-    if (completed != null) {
-      return completed(response);
+    if (success != null) {
+      return success(response);
     }
     return orElse();
   }
@@ -723,75 +807,79 @@ class _$GreetingsCompletedState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GreetingsInitialState value) initial,
-    required TResult Function(GreetingsLoadingState value) loading,
-    required TResult Function(GreetingsCompletedState value) completed,
-    required TResult Function(GreetingsErrorState value) exception,
+    required TResult Function(GreetingsInitial value) initial,
+    required TResult Function(GreetingsRequestInProgress value) load,
+    required TResult Function(GreetingsRequestSuccess value) success,
+    required TResult Function(GreetingsRequestFailure value) failure,
+    required TResult Function(GreetingsRequestReset value) reset,
   }) {
-    return completed(this);
+    return success(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GreetingsInitialState value)? initial,
-    TResult Function(GreetingsLoadingState value)? loading,
-    TResult Function(GreetingsCompletedState value)? completed,
-    TResult Function(GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
   }) {
-    return completed?.call(this);
+    return success?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GreetingsInitialState value)? initial,
-    TResult Function(GreetingsLoadingState value)? loading,
-    TResult Function(GreetingsCompletedState value)? completed,
-    TResult Function(GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
     required TResult orElse(),
   }) {
-    if (completed != null) {
-      return completed(this);
+    if (success != null) {
+      return success(this);
     }
     return orElse();
   }
 }
 
-abstract class GreetingsCompletedState implements GreetingsState {
-  const factory GreetingsCompletedState({final String? response}) =
-      _$GreetingsCompletedState;
+abstract class GreetingsRequestSuccess implements GreetingsState {
+  const factory GreetingsRequestSuccess({final String? response}) =
+      _$GreetingsRequestSuccess;
 
   String? get response => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$$GreetingsCompletedStateCopyWith<_$GreetingsCompletedState> get copyWith =>
+  _$$GreetingsRequestSuccessCopyWith<_$GreetingsRequestSuccess> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$GreetingsErrorStateCopyWith<$Res> {
-  factory _$$GreetingsErrorStateCopyWith(_$GreetingsErrorState value,
-          $Res Function(_$GreetingsErrorState) then) =
-      __$$GreetingsErrorStateCopyWithImpl<$Res>;
+abstract class _$$GreetingsRequestFailureCopyWith<$Res> {
+  factory _$$GreetingsRequestFailureCopyWith(_$GreetingsRequestFailure value,
+          $Res Function(_$GreetingsRequestFailure) then) =
+      __$$GreetingsRequestFailureCopyWithImpl<$Res>;
   $Res call({String message});
 }
 
 /// @nodoc
-class __$$GreetingsErrorStateCopyWithImpl<$Res>
+class __$$GreetingsRequestFailureCopyWithImpl<$Res>
     extends _$GreetingsStateCopyWithImpl<$Res>
-    implements _$$GreetingsErrorStateCopyWith<$Res> {
-  __$$GreetingsErrorStateCopyWithImpl(
-      _$GreetingsErrorState _value, $Res Function(_$GreetingsErrorState) _then)
-      : super(_value, (v) => _then(v as _$GreetingsErrorState));
+    implements _$$GreetingsRequestFailureCopyWith<$Res> {
+  __$$GreetingsRequestFailureCopyWithImpl(_$GreetingsRequestFailure _value,
+      $Res Function(_$GreetingsRequestFailure) _then)
+      : super(_value, (v) => _then(v as _$GreetingsRequestFailure));
 
   @override
-  _$GreetingsErrorState get _value => super._value as _$GreetingsErrorState;
+  _$GreetingsRequestFailure get _value =>
+      super._value as _$GreetingsRequestFailure;
 
   @override
   $Res call({
     Object? message = freezed,
   }) {
-    return _then(_$GreetingsErrorState(
+    return _then(_$GreetingsRequestFailure(
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -802,24 +890,24 @@ class __$$GreetingsErrorStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$GreetingsErrorState
+class _$GreetingsRequestFailure
     with DiagnosticableTreeMixin
-    implements GreetingsErrorState {
-  const _$GreetingsErrorState({required this.message});
+    implements GreetingsRequestFailure {
+  const _$GreetingsRequestFailure({required this.message});
 
   @override
   final String message;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GreetingsState.exception(message: $message)';
+    return 'GreetingsState.failure(message: $message)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'GreetingsState.exception'))
+      ..add(DiagnosticsProperty('type', 'GreetingsState.failure'))
       ..add(DiagnosticsProperty('message', message));
   }
 
@@ -827,7 +915,7 @@ class _$GreetingsErrorState
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GreetingsErrorState &&
+            other is _$GreetingsRequestFailure &&
             const DeepCollectionEquality().equals(other.message, message));
   }
 
@@ -837,43 +925,46 @@ class _$GreetingsErrorState
 
   @JsonKey(ignore: true)
   @override
-  _$$GreetingsErrorStateCopyWith<_$GreetingsErrorState> get copyWith =>
-      __$$GreetingsErrorStateCopyWithImpl<_$GreetingsErrorState>(
+  _$$GreetingsRequestFailureCopyWith<_$GreetingsRequestFailure> get copyWith =>
+      __$$GreetingsRequestFailureCopyWithImpl<_$GreetingsRequestFailure>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(String? response) completed,
-    required TResult Function(String message) exception,
+    required TResult Function() load,
+    required TResult Function(String? response) success,
+    required TResult Function(String message) failure,
+    required TResult Function() reset,
   }) {
-    return exception(message);
+    return failure(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? response)? completed,
-    TResult Function(String message)? exception,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
   }) {
-    return exception?.call(message);
+    return failure?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? response)? completed,
-    TResult Function(String message)? exception,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
-    if (exception != null) {
-      return exception(message);
+    if (failure != null) {
+      return failure(message);
     }
     return orElse();
   }
@@ -881,47 +972,181 @@ class _$GreetingsErrorState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GreetingsInitialState value) initial,
-    required TResult Function(GreetingsLoadingState value) loading,
-    required TResult Function(GreetingsCompletedState value) completed,
-    required TResult Function(GreetingsErrorState value) exception,
+    required TResult Function(GreetingsInitial value) initial,
+    required TResult Function(GreetingsRequestInProgress value) load,
+    required TResult Function(GreetingsRequestSuccess value) success,
+    required TResult Function(GreetingsRequestFailure value) failure,
+    required TResult Function(GreetingsRequestReset value) reset,
   }) {
-    return exception(this);
+    return failure(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GreetingsInitialState value)? initial,
-    TResult Function(GreetingsLoadingState value)? loading,
-    TResult Function(GreetingsCompletedState value)? completed,
-    TResult Function(GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
   }) {
-    return exception?.call(this);
+    return failure?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GreetingsInitialState value)? initial,
-    TResult Function(GreetingsLoadingState value)? loading,
-    TResult Function(GreetingsCompletedState value)? completed,
-    TResult Function(GreetingsErrorState value)? exception,
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
     required TResult orElse(),
   }) {
-    if (exception != null) {
-      return exception(this);
+    if (failure != null) {
+      return failure(this);
     }
     return orElse();
   }
 }
 
-abstract class GreetingsErrorState implements GreetingsState {
-  const factory GreetingsErrorState({required final String message}) =
-      _$GreetingsErrorState;
+abstract class GreetingsRequestFailure implements GreetingsState {
+  const factory GreetingsRequestFailure({required final String message}) =
+      _$GreetingsRequestFailure;
 
   String get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$$GreetingsErrorStateCopyWith<_$GreetingsErrorState> get copyWith =>
+  _$$GreetingsRequestFailureCopyWith<_$GreetingsRequestFailure> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GreetingsRequestResetCopyWith<$Res> {
+  factory _$$GreetingsRequestResetCopyWith(_$GreetingsRequestReset value,
+          $Res Function(_$GreetingsRequestReset) then) =
+      __$$GreetingsRequestResetCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GreetingsRequestResetCopyWithImpl<$Res>
+    extends _$GreetingsStateCopyWithImpl<$Res>
+    implements _$$GreetingsRequestResetCopyWith<$Res> {
+  __$$GreetingsRequestResetCopyWithImpl(_$GreetingsRequestReset _value,
+      $Res Function(_$GreetingsRequestReset) _then)
+      : super(_value, (v) => _then(v as _$GreetingsRequestReset));
+
+  @override
+  _$GreetingsRequestReset get _value => super._value as _$GreetingsRequestReset;
+}
+
+/// @nodoc
+
+class _$GreetingsRequestReset
+    with DiagnosticableTreeMixin
+    implements GreetingsRequestReset {
+  const _$GreetingsRequestReset();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'GreetingsState.reset()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'GreetingsState.reset'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GreetingsRequestReset);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() load,
+    required TResult Function(String? response) success,
+    required TResult Function(String message) failure,
+    required TResult Function() reset,
+  }) {
+    return reset();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
+  }) {
+    return reset?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? load,
+    TResult Function(String? response)? success,
+    TResult Function(String message)? failure,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GreetingsInitial value) initial,
+    required TResult Function(GreetingsRequestInProgress value) load,
+    required TResult Function(GreetingsRequestSuccess value) success,
+    required TResult Function(GreetingsRequestFailure value) failure,
+    required TResult Function(GreetingsRequestReset value) reset,
+  }) {
+    return reset(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
+  }) {
+    return reset?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GreetingsInitial value)? initial,
+    TResult Function(GreetingsRequestInProgress value)? load,
+    TResult Function(GreetingsRequestSuccess value)? success,
+    TResult Function(GreetingsRequestFailure value)? failure,
+    TResult Function(GreetingsRequestReset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GreetingsRequestReset implements GreetingsState {
+  const factory GreetingsRequestReset() = _$GreetingsRequestReset;
 }

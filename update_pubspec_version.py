@@ -7,50 +7,81 @@ validate_version_number = (
 )
 
 
-def update(version_number: str = None, build_number: str = None):
+def compare_version_numbers(old_version: str = None, new_version: str = None):
+    if (
+        not old_version
+        or type(old_version) != str
+        or not validate_version_number(old_version)
+    ):
+        return (
+            "0.0.1"
+            if not new_version
+            or type(new_version) != str
+            or not validate_version_number(new_version)
+            else new_version
+        )
+
+    if (
+        not new_version
+        or type(new_version) != str
+        or not validate_version_number(new_version)
+    ):
+        return old_version
+
+    while old_version > new_version:
+        olds = [x for x in old_version.split(".")]
+        news = [x for x in new_version.split(".")]
+
+        for index, (old, new) in enumerate(zip(olds, news)):
+            news[index] = old if old > new else new
+
+        new_version = ".".join(news)
+
+    return new_version
+
+
+def update(version: str = None, build: str = None):
     try:
         # Check version number is provided and matches the appropriate pattern of 3 numbers connected by dots e.g 1.0.0
         if (
-            not version_number
-            or not isinstance(version_number, str)
-            or not validate_version_number(version_number)
+            not version
+            or not isinstance(version, str)
+            or not validate_version_number(version)
         ):
-            version_number = input(
+            new_version = input(
                 "[Optional]. Enter the version number. This is three numbers separated by dots, such as 1.0.0: "
             )
+        else:
+            new_version = version
 
-        if version_number:
+        if new_version:
 
-            while not validate_version_number(version_number):
-                version_number = input(
+            while not validate_version_number(new_version):
+                new_version = input(
                     "[Optional]. Enter the version number. This is three numbers separated by dots, such as 1.0.0: "
                 )
 
         # Check build number is provided and is a digit
-        if (
-            not build_number
-            or not isinstance(build_number, str)
-            or not build_number.isdigit()
-        ):
-            build_number = input(
+        if not build or not isinstance(build, str) or not build.isdigit():
+            new_build = input(
                 "[Optional]. Enter the build number. This is a single number such as 1: "
             )
+        else:
+            new_build = build
 
-        if not build_number:
-            # Generate from current date and time, consisting of year (e.g 2013), month (e.g 09), day (e.g 08) and hour (e.g 07)
+        if not new_build:
+            # Generate from current datetime consisting of year(e.g 2013), month(e.g 09), day(e.g 08) & hour(e.g 07)
 
-            import datetime
+            from datetime import datetime
             from dateutil import tz
 
-            build_number = datetime.datetime.now(
-                tz=tz.gettz("Africa/Nairobi")
-            ).strftime("%Y%m%d%H")
+            new_build = datetime.now(tz=tz.gettz("Africa/Nairobi")).strftime("%Y%m%d%H")
 
         else:
             # Ensure digit given
 
-            while not build_number.isdigit():
-                build_number = input(
+            while not new_build.isdigit():
+                new_build = input(
                     "[Optional]. Enter the build number. This is a single number such as 1: "
                 )
 
@@ -60,14 +91,24 @@ def update(version_number: str = None, build_number: str = None):
 
         for line in fileinput.input(["pubspec.yaml"], inplace=True):
             if line.strip().startswith("version: "):
-                prev_version, prev_build = tuple(line.split(":")[-1].strip().split("+"))
-                version_number = prev_version if not version_number else version_number
+                old_version, old_build = tuple(line.split(":")[-1].strip().split("+"))
+                version_number = compare_version_numbers(
+                    new_version=new_version, old_version=old_version
+                )
                 # Build number must change for successful release of Android App on Google Play
                 # Therefore if new & old version and build numbers are the same, add 1 to build number
-                if version_number == prev_version and build_number == prev_build:
-                    build_number = int(build_number) + 1
-                line = f"version: {version_number or prev_version}+{build_number}\n"
+                build_number = (
+                    int(new_build) + 1
+                    if version_number == old_version and new_build <= old_build
+                    else new_build
+                )
+                line = f"version: {version_number}+{build_number}\n"
             sys.stdout.write(line)
+
+        import subprocess
+        import shlex
+
+        subprocess.run(shlex.split("flutter pub get"))
     except (BaseException,) as err:
         print(err)
 
@@ -104,4 +145,4 @@ if __name__ == "__main__":
 
     import re
 
-    update(version_number=args.version_number, build_number=args.build_number)
+    update(version=args.version_number, build=args.build_number)

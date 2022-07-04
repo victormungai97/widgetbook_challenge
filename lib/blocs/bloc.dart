@@ -3,3 +3,6 @@
 /// hence providing a separation of concerns in the app
 
 export 'src/greetings_bloc.dart';
+
+// For naming of blocs/cubits, events & states,
+// consider convention provided in https://bloclibrary.dev/#/blocnamingconventions

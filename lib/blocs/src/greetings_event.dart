@@ -7,11 +7,14 @@ part of 'greetings_bloc.dart';
 
 @freezed
 class GreetingsEvent with _$GreetingsEvent {
-  /// Factory constructor getting greeting.
+  /// Factory constructor requesting greeting.
   /// It shall need the user's name which will be passed to the API
-  const factory GreetingsEvent.request({
+  const factory GreetingsEvent.requested({
     required String? name,
     @Default(false) bool throwError,
-    math.Random? randomNumberGenerator,
-  }) = GetGreetingEvent;
+  }) = GreetingsRequested;
+
+  /// Factory constructor resetting state and clearing name.
+  /// It shall need the user's name which will be passed to the API
+  const factory GreetingsEvent.reset() = GreetingsScreenReset;
 }

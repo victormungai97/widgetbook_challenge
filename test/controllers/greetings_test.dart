@@ -15,16 +15,31 @@ void main() {
     () {
       late GreetingsController greetingsController;
 
-      late MockRandom mockRandom;
+      late math.Random mockRandom;
 
       // Instantiate objects to be used in tests
       setUp(() {
         mockRandom = MockRandom();
 
-        greetingsController = GreetingsController();
+        greetingsController = GreetingsController(
+          randomNumberGenerator: mockRandom,
+        );
       });
 
-      // i) Test when no name is provided for greeting
+      // i) Test greetings controller instance is correctly instantiated
+      test(
+        '''
+            When creating a greetings constructor 
+            Then the instance is returned & is subclass of Controller
+            ''',
+        () {
+          expect(greetingsController, isNotNull);
+          expect(greetingsController, isA<GreetingsController>());
+          expect(greetingsController, const TypeMatcher<Controller>());
+        },
+      );
+
+      // ii) Test when no name is provided for greeting
       test(
         """
         Given a user submitting null string as name
@@ -32,12 +47,12 @@ void main() {
         Then error message asking for user's name is returned
         """,
         () async {
-          final result = await greetingsController.getGreeting(name: null);
+          final result = await greetingsController.requestGreeting(name: null);
           expect(result, "Please enter the user's name");
         },
       );
 
-      // ii) Test when empty name is provided for greeting
+      // iii) Test when empty name is provided for greeting
       test(
         """
         Given a user submitting empty string as name
@@ -45,12 +60,12 @@ void main() {
         Then error message asking for user's name is returned
         """,
         () async {
-          final result = await greetingsController.getGreeting(name: '');
+          final result = await greetingsController.requestGreeting(name: '');
           expect(result, "Please enter the user's name");
         },
       );
 
-      // iii) Test when provided name contains non - whitespace / letter character
+      // iv) Test when provided name contains non - whitespace / letter character
       test(
         '''
         Given a user submitting name that contains character(s) that
@@ -60,12 +75,12 @@ void main() {
           in name is returned
         ''',
         () async {
-          final result = await greetingsController.getGreeting(name: '1');
+          final result = await greetingsController.requestGreeting(name: '1');
           expect(result, 'Only letters allowed');
         },
       );
 
-      // iv) Test when an error that is not [UnexpectedException] occurs
+      // v) Test when an error that is not [UnexpectedException] occurs
       test(
         '''
         Given an exception that is not `UnexpectedException` occurring
@@ -73,7 +88,7 @@ void main() {
         Then error message informing user that something went wrong is returned
         ''',
         () async {
-          final result = await greetingsController.getGreeting(
+          final result = await greetingsController.requestGreeting(
             name: 'hi',
             throwError: true,
           );
@@ -82,7 +97,7 @@ void main() {
         },
       );
 
-      // v) Test when proper name (with only letters & whitespace) is provided
+      // vi) Test when proper name (with only letters & whitespace) is provided
       test(
         r"""
         Given a user submitting a proper name containing only letters/whitespace
@@ -91,7 +106,7 @@ void main() {
           or an error message of `Unexpected Error`is returned
         """,
         () async {
-          final result = await greetingsController.getGreeting(
+          final result = await const GreetingsController().requestGreeting(
             name: 'WidgetBook',
           );
           expect(
@@ -104,7 +119,7 @@ void main() {
         },
       );
 
-      // vi) Test when proper name and mocked odd number generator is provided
+      // vii) Test when proper name and mocked odd number generator is provided
       test(
         '''
         Given mocked random number generator that is stubbed to generate odd number
@@ -117,17 +132,14 @@ void main() {
           when(mockRandom.nextInt(3)).thenReturn(1);
 
           // make request
-          final result = await greetingsController.getGreeting(
-            name: 'hi',
-            randomNumberGenerator: mockRandom,
-          );
+          final result = await greetingsController.requestGreeting(name: 'hi');
 
           // compare values
           expect(result, 'Unexpected Error has occurred. Try again later');
         },
       );
 
-      // vii) Test when proper name and mocked even number generator is provided
+      // viii) Test when proper name and mocked even number generator's provided
       test(
         r"""
         Given mocked random number generator that is stubbed to generate even number
@@ -140,9 +152,8 @@ void main() {
           when(mockRandom.nextInt(3)).thenReturn(2);
 
           // make request
-          final result = await greetingsController.getGreeting(
+          final result = await greetingsController.requestGreeting(
             name: 'WidgetBook',
-            randomNumberGenerator: mockRandom,
           );
 
           // compare values
