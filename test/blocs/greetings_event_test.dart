@@ -9,7 +9,7 @@ import 'package:widgetbook_challenge/blocs/bloc.dart';
 void main() {
   group('Greetings Events Tests.', () {
     test('returns correct values for GreetingsEvent.requested', () {
-      const event = GreetingsEvent.requested(name: '', throwError: true);
+      const event = GreetingsEvent.requested(name: '');
       expect(event, isA<GreetingsRequested>());
     });
 

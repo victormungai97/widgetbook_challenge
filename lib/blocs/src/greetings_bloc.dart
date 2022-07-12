@@ -17,9 +17,8 @@ class GreetingsBloc extends Bloc<GreetingsEvent, GreetingsState> {
       : super(const GreetingsState.initial()) {
     on<GreetingsEvent>((event, emit) async {
       await event.when(
-        requested: (name, throwError) async {
+        requested: (name) async {
           try {
-            if (throwError) throw Exception('This is an exception in BLoC');
             // Make screen load
             emit(const GreetingsState.load());
             // make API Call and get response

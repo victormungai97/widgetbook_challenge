@@ -9,10 +9,8 @@ part of 'greetings_bloc.dart';
 class GreetingsEvent with _$GreetingsEvent {
   /// Factory constructor requesting greeting.
   /// It shall need the user's name which will be passed to the API
-  const factory GreetingsEvent.requested({
-    required String? name,
-    @Default(false) bool throwError,
-  }) = GreetingsRequested;
+  const factory GreetingsEvent.requested({required String? name}) =
+      GreetingsRequested;
 
   /// Factory constructor resetting state and clearing name.
   /// It shall need the user's name which will be passed to the API

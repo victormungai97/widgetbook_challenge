@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GreetingsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? name, bool throwError) requested,
+    required TResult Function(String? name) requested,
     required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? name, bool throwError)? requested,
+    TResult Function(String? name)? requested,
     TResult Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? name, bool throwError)? requested,
+    TResult Function(String? name)? requested,
     TResult Function()? reset,
     required TResult orElse(),
   }) =>
@@ -78,7 +78,7 @@ abstract class _$$GreetingsRequestedCopyWith<$Res> {
   factory _$$GreetingsRequestedCopyWith(_$GreetingsRequested value,
           $Res Function(_$GreetingsRequested) then) =
       __$$GreetingsRequestedCopyWithImpl<$Res>;
-  $Res call({String? name, bool throwError});
+  $Res call({String? name});
 }
 
 /// @nodoc
@@ -95,17 +95,12 @@ class __$$GreetingsRequestedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? throwError = freezed,
   }) {
     return _then(_$GreetingsRequested(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      throwError: throwError == freezed
-          ? _value.throwError
-          : throwError // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -115,17 +110,14 @@ class __$$GreetingsRequestedCopyWithImpl<$Res>
 class _$GreetingsRequested
     with DiagnosticableTreeMixin
     implements GreetingsRequested {
-  const _$GreetingsRequested({required this.name, this.throwError = false});
+  const _$GreetingsRequested({required this.name});
 
   @override
   final String? name;
-  @override
-  @JsonKey()
-  final bool throwError;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GreetingsEvent.requested(name: $name, throwError: $throwError)';
+    return 'GreetingsEvent.requested(name: $name)';
   }
 
   @override
@@ -133,8 +125,7 @@ class _$GreetingsRequested
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'GreetingsEvent.requested'))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('throwError', throwError));
+      ..add(DiagnosticsProperty('name', name));
   }
 
   @override
@@ -142,16 +133,12 @@ class _$GreetingsRequested
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GreetingsRequested &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.throwError, throwError));
+            const DeepCollectionEquality().equals(other.name, name));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(throwError));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(name));
 
   @JsonKey(ignore: true)
   @override
@@ -162,30 +149,30 @@ class _$GreetingsRequested
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? name, bool throwError) requested,
+    required TResult Function(String? name) requested,
     required TResult Function() reset,
   }) {
-    return requested(name, throwError);
+    return requested(name);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? name, bool throwError)? requested,
+    TResult Function(String? name)? requested,
     TResult Function()? reset,
   }) {
-    return requested?.call(name, throwError);
+    return requested?.call(name);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? name, bool throwError)? requested,
+    TResult Function(String? name)? requested,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (requested != null) {
-      return requested(name, throwError);
+      return requested(name);
     }
     return orElse();
   }
@@ -223,12 +210,10 @@ class _$GreetingsRequested
 }
 
 abstract class GreetingsRequested implements GreetingsEvent {
-  const factory GreetingsRequested(
-      {required final String? name,
-      final bool throwError}) = _$GreetingsRequested;
+  const factory GreetingsRequested({required final String? name}) =
+      _$GreetingsRequested;
 
   String? get name => throw _privateConstructorUsedError;
-  bool get throwError => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$GreetingsRequestedCopyWith<_$GreetingsRequested> get copyWith =>
       throw _privateConstructorUsedError;
@@ -283,7 +268,7 @@ class _$GreetingsScreenReset
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? name, bool throwError) requested,
+    required TResult Function(String? name) requested,
     required TResult Function() reset,
   }) {
     return reset();
@@ -292,7 +277,7 @@ class _$GreetingsScreenReset
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? name, bool throwError)? requested,
+    TResult Function(String? name)? requested,
     TResult Function()? reset,
   }) {
     return reset?.call();
@@ -301,7 +286,7 @@ class _$GreetingsScreenReset
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? name, bool throwError)? requested,
+    TResult Function(String? name)? requested,
     TResult Function()? reset,
     required TResult orElse(),
   }) {

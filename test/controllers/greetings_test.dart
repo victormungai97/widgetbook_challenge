@@ -3,10 +3,13 @@ import 'dart:math' as math;
 
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart' as mocktail;
 import 'package:test/test.dart';
 import 'package:widgetbook_challenge/controllers/controller.dart';
 
 import 'greetings_test.mocks.dart';
+
+class MockController extends mocktail.Mock implements Controller {}
 
 @GenerateMocks([math.Random])
 void main() {
@@ -88,11 +91,19 @@ void main() {
         Then error message informing user that something went wrong is returned
         ''',
         () async {
-          final result = await greetingsController.requestGreeting(
-            name: 'hi',
-            throwError: true,
-          );
+          // ARRANGE
+          mocktail
+              .when(
+                () => MockController().isStringEmpty(mocktail.any()),
+              )
+              .thenThrow(
+                Exception('This is an exception in controller'),
+              );
 
+          // ACT
+          final result = await greetingsController.requestGreeting(name: 'hi');
+
+          // ASSERT
           expect(result, 'Something went wrong. Contact support');
         },
       );

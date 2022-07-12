@@ -4,11 +4,15 @@ import 'dart:math' as math;
 import 'package:bloc_test/bloc_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart' as mocktail;
 import 'package:test/test.dart';
 import 'package:widgetbook_challenge/blocs/bloc.dart';
 import 'package:widgetbook_challenge/controllers/controller.dart';
 
 import 'greetings_bloc_test.mocks.dart';
+
+class MockGreetingsController extends mocktail.Mock
+    implements GreetingsController {}
 
 @GenerateMocks([math.Random])
 void main() {
@@ -111,6 +115,7 @@ void main() {
       );
 
       // d) Test when an error that is not [UnexpectedException] occurs
+      final mockController = MockGreetingsController();
       blocTest<GreetingsBloc, GreetingsState>(
         '''
         Given error that is not `UnexpectedException` is thrown
@@ -118,13 +123,26 @@ void main() {
         Then loading state then error state containing message 
           informing user that error occurred is emitted
         ''',
-        build: () => greetingsBloc,
+        build: () => GreetingsBloc(mockController),
+        setUp: () {
+          // Stub the `requestGreetings` method.
+          mocktail
+              .when(
+                () => mockController.requestGreeting(
+                  name: mocktail.any(named: 'name'),
+                ),
+              )
+              .thenThrow(
+                Exception('This is an exception in BLoC'),
+              );
+        },
         act: (bloc) {
-          bloc.add(const GreetingsRequested(name: 'hi', throwError: true));
+          bloc.add(const GreetingsRequested(name: 'hi'));
         },
         expect: () => <GreetingsState>[
           const GreetingsRequestFailure(message: 'Error getting response'),
         ],
+        skip: 1,
       );
 
       // e) Test when proper name (with only letters & whitespace) is provided

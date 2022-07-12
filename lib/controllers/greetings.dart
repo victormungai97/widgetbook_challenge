@@ -14,12 +14,8 @@ class GreetingsController extends Controller {
   static final _nameRegExp = RegExp(r'[!@#<>?":_`~;[\]\\|=+/)(*&^%0-9-]');
 
   /// Receive user's name, make API call and get, process & return response
-  Future<String> requestGreeting({
-    required String? name,
-    bool throwError = false,
-  }) async {
+  Future<String> requestGreeting({required String? name}) async {
     try {
-      if (throwError) throw Exception('This is an exception in controller');
       // 1. Authenticate name
       if (isStringEmpty(name)) return "Please enter the user's name";
       if (_nameRegExp.hasMatch(name!)) return 'Only letters allowed';
